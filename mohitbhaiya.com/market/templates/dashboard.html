@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block content %}
+
+<script>
+function change_toggle_text_color(p_id)
+{
+    var searchEles = document.getElementById("div_timeframe_filter").querySelectorAll("p");
+    for(var i = 0; i < searchEles.length; i++) {
+        if(searchEles[i].id == p_id) {
+            searchEles[i].style = "color:green;";
+            }
+        else {
+            searchEles[i].style = "color:blue;";
+        }
+    }
+}
+
+/*
+function load_table_data()
+for (i = 0; i<3; i++) {
+           document.write("<tr><td>");
+           document.write("Hello world");
+           document.write("</td><td>");
+           document.write("Hello China");
+           document.write("</td><td>");
+           document.write("Hello USA");
+           document.write("</td></tr>");
+        }
+*/
+
+function addTable(data) {
+
+  var tableBody = document.getElementById("tab_performance_body");
+  for (var i = 0; i < data.length; i++) {
+    var obj = data[i]
+    var tr = document.createElement('TR');
+    tableBody.appendChild(tr);
+    for (var key in obj) {
+      var td = document.createElement('TD');
+      var value = obj[key];
+      td.appendChild(document.createTextNode(value));
+      tr.appendChild(td);
+    }
+  }
+  // myTableDiv.appendChild(table);
+}
+
+
+function addpageicon(current_page_no){
+    console.log("current_page-"+current_page_no)
+    ul_element = document.getElementById("ul_pagination");
+    start = current_page_no
+    console.log("start-"+start)
+    end = current_page_no + 3
+    console.log("end-"+end)
+    for (i = start; i < end; i++) {
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.classList.add('page-link')
+    a.href = "/dashboard/"+i;
+    if (i == current_page_no){
+        value = i
+        a.style = "color:green;";
+        a.appendChild(document.createTextNode(value));
+        }
+
+    else{
+        a.appendChild(document.createTextNode(i));
+    }
+
+    if (i == 1){
+    prev_a = document.getElementById("prev_page");
+    prev_a.style.display = "none";
+    }
+    li.class = "page-item";
+    li.appendChild(a);
+    ul_element.appendChild(li);
+    console.log(a)
+    }
+
+
+}
+
+
+function searchSymboltable() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("tab_performance");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    symbol_td = tr[i].getElementsByTagName("td")[0];
+    pattern_td = tr[i].getElementsByTagName("td")[4];
+    if (symbol_td || pattern_td) {
+      symbolValue = symbol_td.textContent || symbol_td.innerText;
+      patternValue = pattern_td.textContent || pattern_td.innerText;
+      if ((symbolValue.toUpperCase().indexOf(filter) > -1) || (patternValue.toUpperCase().indexOf(filter) > -1))
+      {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
+</script>
+
+     <div class="col-12 col-xl-12 mb-4">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <input class="h-75" type="text" id="myInput" background-image="/static/searchicon.png"  onkeyup="searchSymboltable()" placeholder="Search for Symbol or Patterns.." title="Type in a symbol">
+
+                                <div id="div_timeframe_filter" class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                                   <label class="btn btn-light h-75   active">
+                                        <input type="radio" name="options" id="option1" autocomplete="off" > <p id="last1monthlink" style="color:blue;" onclick = "change_toggle_text_color('last1monthlink')" checked> Last 1 month</p>
+                                    </label>
+                                    <label class="btn btn-light h-75 ">
+                                         <input type="radio" name="options" id="option2" autocomplete="off"> <p id="last15dayslink" style="color:blue;" onclick = "change_toggle_text_color('last15dayslink')">Last 15 days</p>
+                                    </label>
+                                    <label class="btn btn-light h-75">
+                                        <input type="radio" name="options" id="option3" autocomplete="off" > <p id="last7dayslink" style="color:blue;" onclick = "change_toggle_text_color('last7dayslink')">Last 7 days</p>
+                                    </label>
+                                </div>
+                                </div>
+                            </div></div></div><div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-xl-12 mb-4">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                <h2 class="h5"> Performance
+                                </h2>
+                                </div>
+<!--                                <div class="col text-right">-->
+<!--                                    <a href="#" class="btn btn-sm btn-secondary">See all</a>-->
+<!--                                </div>-->
+                                <ul id="ul_pagination" class="pagination">
+                                    <li class="page-item">
+                                      <a id="prev_page" class="page-link" href="/dashboard/{{current_page_no|int - 1}}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                      </a>
+                                    </li>
+                                    <script>addpageicon({{current_page_no|safe}});</script>
+                                    <!--
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                    <li class="page-item">
+                                      <a class="page-link" href="/dashboard/{{current_page_no|int + 1}}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                      </a>
+                                    </li>
+                                  </ul>
+                            </div>
+                        </div>
+                        <div id="div_performance11" class="table-responsive">
+                            <table id="tab_performance" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Symbols</th>
+                                    <th scope="col">Avg. Change</th>
+                                    <th scope="col">Last Change</th>
+                                    <th scope="col">Vol Rise<small>(20 days Moving Avg)</small></th>
+                                    <th scope="col">Pattern Journey</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tab_performance_body">
+                                <script>addTable({{data|safe}});</script>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+<!--        <div class="col-12 col-xl-4 mb-4">-->
+<!--            <div class="col-12 px-0 mb-4">-->
+<!--                <div class="card border-light shadow-sm">-->
+<!--                    <div class="card-body d-flex flex-row align-items-center flex-0 border-bottom">-->
+<!--                        <div class="d-block">-->
+<!--                            <div class="h6 fw-normal text-gray mb-2">Total orders</div>-->
+<!--                            <h2 class="h3">452</h2>-->
+<!--                            <div class="small mt-2">                               -->
+<!--                                <span class="fas fa-angle-up text-success"></span>                                   -->
+<!--                                <span class="text-success fw-bold">18.2%</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="d-block ms-auto">-->
+<!--                            <div class="d-flex align-items-center text-right mb-2">-->
+<!--                                <span class="shape-xs rounded-circle bg-dark me-2"></span>-->
+<!--                                <span class="fw-normal small">July</span>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex align-items-center text-right">-->
+<!--                                <span class="shape-xs rounded-circle bg-secondary me-2"></span>-->
+<!--                                <span class="fw-normal small">August</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="card-body p-2">-->
+<!--                        <div class="ct-chart-ranking ct-golden-section ct-series-a"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-12 px-0 mb-4">-->
+<!--                <div class="card border-light shadow-sm">-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="d-flex align-items-center justify-content-between border-bottom border-light pb-3">-->
+<!--                            <div>-->
+<!--                                <h6 class="mb-0"><span class="icon icon-xs me-3"><span class="fas fa-globe-europe"></span></span>Global Rank</h6>-->
+<!--                            </div>-->
+<!--                            <div>-->
+<!--                                <a href="#" class="text-primary fw-bold">#755<span class="fas fa-chart-line ms-2"></span></a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">-->
+<!--                            <div>-->
+<!--                                <h6 class="mb-0"><span class="icon icon-xs me-3"><span class="fas fa-flag-usa"></span></span>Country Rank</h6>-->
+<!--                                <div class="small card-stats">United States<span class="icon icon-xs text-success ms-2"><span class="fas fa-angle-up"></span></span></div>-->
+<!--                            </div>-->
+<!--                            <div>-->
+<!--                                <a href="#" class="text-primary fw-bold">#32<span class="fas fa-chart-line ms-2"></span></a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="d-flex align-items-center justify-content-between pt-3">-->
+<!--                            <div>-->
+<!--                                <h6 class="mb-0"><span class="icon icon-xs me-3"><span class="fas fa-folder-open"></span></span>Category Rank</h6>-->
+<!--                                <a href="#" class="small card-stats">Travel > Accomodation</a>-->
+<!--                            </div>-->
+<!--                            <div>-->
+<!--                                <a href="#" class="text-primary fw-bold">#16<span class="fas fa-chart-line ms-2"></span></a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-12 px-0 mb-4">-->
+<!--                <div class="card border-light shadow-sm">-->
+<!--                    <div class="card-body">-->
+<!--                        <h2 class="h5">Acquisition</h2>-->
+<!--                        <p>Tells you where your visitors originated from, such as search engines, social networks or website referrals.</p>-->
+<!--                        <div class="d-block">-->
+<!--                            <div class="d-flex align-items-center pt-3 me-5">-->
+<!--                                <div class="icon icon-shape icon-sm icon-shape-danger rounded me-3"><span class="fas fa-chart-bar"></span></div>-->
+<!--                                <div class="d-block">-->
+<!--                                    <label class="mb-0">Bounce Rate</label>-->
+<!--                                    <h4 class="mb-0">33.50%</h4>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex align-items-center pt-3">-->
+<!--                                <div class="icon icon-shape icon-sm icon-shape-quaternary rounded me-3"><span class="fas fa-chart-area"></span></div>-->
+<!--                                <div class="d-block">-->
+<!--                                    <label class="mb-0">Sessions</label>-->
+<!--                                    <h4 class="mb-0">9,567</h4>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
