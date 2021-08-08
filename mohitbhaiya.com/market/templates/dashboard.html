@@ -20,36 +20,51 @@ function change_toggle_text_color(p_id)
 
 
 function addTable(data,current_page) {
-  console.log("Table current_page - ",current_page)
-  var tableBody = document.getElementById("tab_performance_body");
-  // remove older TR first
+    console.log("Table current_page - ",current_page)
+    var tableBody = document.getElementById("tab_performance_body");
+    // remove older TR first
     var all_tr = tableBody.querySelectorAll("TR");
     for (j=0;j<all_tr.length;j++){
     each_tr = all_tr[j];
     each_tr.remove();
     }
-  start = (current_page - 1)*10
-  end =  start + 10
-  console.log("start-",start)
-  console.log("end-",end)
-  data_arr = []
-  for (var each_key in data){
-  each_element = data[each_key]
-  data_arr.push(each_element)
-  }
-  console.log(data_arr)
-  page_data = data_arr.slice(start, end);
-  console.log(page_data)
-  console.log(typeof page_data)
-
-  for (var i = 0; i < page_data.length; i++) {
+    start = (current_page - 1)*10
+    end =  start + 10
+    data_arr = []
+    for (var each_key in data){
+    each_element = data[each_key]
+    data_arr.push(each_element)
+    }
+    page_data = data_arr.slice(start, end);
+    for (var i = 0; i < page_data.length; i++) {
     var obj = page_data[i]
     var tr = document.createElement('TR');
     tableBody.appendChild(tr);
     for (var key in obj) {
       var td = document.createElement('TD');
       var value = obj[key];
-      if (key == "today_rise_percentage" || key == "vol_rise_mv"){
+      if (key == "companyname") {
+            td.appendChild(document.createTextNode(value.trim()));
+            var a = document.createElement('a')
+            a.classList.add("badge")
+            a.classList.add("badge-pill")
+            a.classList.add("badge-primary")
+            //var value = obj['industry']
+            a.style = "font-size:7px;float:bottom; clear:left;"
+            a.textContent = obj['industry']
+            td.appendChild(a)
+            tr.appendChild(td);
+      }
+      if (key == "symbol") {
+        td.appendChild(document.createTextNode(value));
+        tr.appendChild(td);
+      }
+      if(key == "avg_rise"){
+           value = parseFloat(value).toFixed(3)
+           td.appendChild(document.createTextNode(value));
+           tr.appendChild(td);
+      }
+      if (key == "today_rise_percentage" || key == "vol_rise_mv" || key == "del_rise_mv"){
           var span = document.createElement('span');
           value = parseFloat(value).toFixed(3)
           span.classList.add("fas");
@@ -71,60 +86,100 @@ function addTable(data,current_page) {
           td.appendChild(span)
           tr.appendChild(td);
       }
-      else if(key == "avg_rise"){
-           value = parseFloat(value).toFixed(3)
-           td.appendChild(document.createTextNode(value));
-           tr.appendChild(td);
-      }
-      else if(key == "patterns"){
+      if(key == "patterns"){
            values = value.replace(/\s/g, '').split(",")
-           console.log(values)
            for (each in values){
-                console.log("****----***")
-                console.log(values[each])
                 if(values[each] != "" && !values[each].startsWith("twenty") && !values[each].startsWith("seven")){
                     var a = document.createElement('button')
                     a.type = 'button'
                     a.classList.add("btn")
                     a.classList.add("btn-sm")
                     a.classList.add("btn-info")
-                    // <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
-
                     a.setAttribute('data-container', 'body');
                     a.setAttribute('data-toggle', 'popover');
                     a.setAttribute('data-placement', 'left');
                     a.setAttribute('data-html', 'true');
                     a.setAttribute('data-content', timeline_html);
-                    //a.setAttribute('data-content', 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.');
                     a.setAttribute('rel', 'popover');
-                    a.style = "font-size:11px;margin-right:4px;"
+                    a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
                     a.textContent = values[each]
-                    //a.appendChild(document.createTextNode(values[each]))
                     td.appendChild(a)
                 }
 
            }
            tr.appendChild(td);
       }
-      else if (key == "symbol" || key =="avg_rise") {
+
+      if(key=="mf_house"){
+               if (value){
+                   values = value.replace(/,/g, '').slice(0, -1).split("|")
+                   console.log("***mutual fund****")
+                   console.log(values)
+                   actual_len = values.length
+                   console.log("Actual Lenght ---"+actual_len)
+                   remaining_length = actual_len - 2
+                   console.log("remaining Lenght ---"+remaining_length)
+                   //td.appendChild(document.createTextNode(value+actual_len+remaining_length));
+                   if (actual_len <= 2){
+                        for(each in values){
+                              if (value[each] != ""){
+                                var a = document.createElement('a')
+                                a.classList.add("badge")
+                                a.classList.add("badge-pill")
+                                a.classList.add("badge-secondary")
+                                a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
+                                a.textContent = values[each]
+                                td.appendChild(a)
+                              }
+                        }
+                   }
+                   else{j=0
+                        for(each in values){
+                            if (j < 2){
+                                  if (values[each] != ""){
+                                    var a = document.createElement('a')
+                                    a.classList.add("badge")
+                                    a.classList.add("badge-pill")
+                                    a.classList.add("badge-secondary")
+                                    a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
+                                    a.textContent = values[each]
+                                    td.appendChild(a)
+                                    j = j + 1
+                                  }
+                            }
+                        }
+                        var a = document.createElement('a')
+                        a.classList.add("badge")
+                        a.classList.add("badge-pill")
+                        a.classList.add("badge-primary")
+                        a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
+                        a.setAttribute('data-container', 'body');
+                        a.setAttribute('data-toggle', 'popover');
+                        a.setAttribute('data-placement', 'bottom');
+                        a.setAttribute('data-html', 'true');
+                        a.setAttribute('data-content',values.slice(2).join() );
+                        a.setAttribute('rel', 'popover');
+                        a.textContent = "+"+remaining_length
+                        td.appendChild(a)
+
+                   }
+               }
+               tr.appendChild(td);
+           }
+      /*else {
             td.appendChild(document.createTextNode(value));
             tr.appendChild(td);
-      }
-      else {
-            td.appendChild(document.createTextNode(value));
-            tr.appendChild(td);
-      }
+      } */
     }
   }
-  // myTableDiv.appendChild(table);
 }
 
 function createpageicon(curr_page=1,data,period=15,max_page=6){
     //alert(typeof data)
     //alert(curr_page)
-    console.log("data type below")
-    console.log(typeof data)
-    console.log("curr_page - "+curr_page)
+    //console.log("data type below")
+    //console.log(typeof data)
+    //console.log("curr_page - "+curr_page)
     first_page = curr_page
 
     ul_element = document.getElementById("ul_pagination");
@@ -182,7 +237,7 @@ function createpageicon(curr_page=1,data,period=15,max_page=6){
   }
 
 function search(source=[],period=15) {
-    console.log("hi")
+    //console.log("hi")
     var results;
     input = document.getElementById("myInput");
     query_symbol = input.value.toUpperCase();
@@ -190,7 +245,7 @@ function search(source=[],period=15) {
         var match = entry.symbol.toUpperCase().indexOf(query_symbol) !== -1 || entry.patterns.toUpperCase().indexOf(query_symbol) !== -1;
         return match ? entry : null;
     });
-    console.log(results)
+    //console.log(results)
     createpageicon(curr_page=1,results,period,max_page=6)
     //return results;
 }
@@ -247,8 +302,7 @@ var timeline_html = `
 </script>
 
 <!--<script type=text/javascript src="{{url_for('static', filename='js/main.js') }}"></script>-->
-    <a href="#" data-toggle="popover" data-placement="bottom" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
-     <div class="col-12 col-xl-12 mb-4">
+    <div class="col-12 col-xl-12 mb-4">
             <div class="row">
                 <div class="col-12 mb-4">
                     <div class="card border-light shadow-sm">
@@ -305,15 +359,15 @@ var timeline_html = `
                         <div id="div_performance11" class="table-responsive">
                             <table id="tab_performance" cellpadding="0" cellspacing="0" border="0" class="table table-hover table-sm table-bordered table-condensed">
 
-                                <thead class="thead-light ">
+                                <thead class="thead-light table-condensed">
                                 <tr>
                                     <th scope="col">Stock Name</th>
                                     <th scope="col">Symbols</th>
                                     <th scope="col">Avg. % Change per day </th>
                                     <th scope="col">Last % Change </th>
-                                    <th scope="col">Vol Rise<small>(20 days MAV)</small></th>
+                                    <th scope="col">Volume % change<small> (20 days MAV)</small></th>
+                                    <th scope="col">Delivery % change<small> (20 days MAV)</small></th>
                                     <th scope="col">Pattern</th>
-                                    <th scope="col">Industry</th>
                                     <th scope="col">Mutual Fund Houses</th>
                                 </tr>
                                 </thead>
