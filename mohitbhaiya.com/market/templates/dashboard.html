@@ -6,7 +6,7 @@ Dashboard
 
 <script>
 function change_toggle_text_color(p_id)
-{
+{   //window.location.href = '/dashboard?period=30'
     var searchEles = document.getElementById("div_timeframe_filter").querySelectorAll("p");
     for(var i = 0; i < searchEles.length; i++) {
         if(searchEles[i].id == p_id) {
@@ -18,74 +18,185 @@ function change_toggle_text_color(p_id)
     }
 }
 
-/*
-function load_table_data()
-for (i = 0; i<3; i++) {
-           document.write("<tr><td>");
-           document.write("Hello world");
-           document.write("</td><td>");
-           document.write("Hello China");
-           document.write("</td><td>");
-           document.write("Hello USA");
-           document.write("</td></tr>");
-        }
-*/
 
-function addTable(data) {
-
+function addTable(data,current_page) {
+  console.log("Table current_page - ",current_page)
   var tableBody = document.getElementById("tab_performance_body");
-  for (var i = 0; i < data.length; i++) {
-    var obj = data[i]
+  // remove older TR first
+    var all_tr = tableBody.querySelectorAll("TR");
+    for (j=0;j<all_tr.length;j++){
+    each_tr = all_tr[j];
+    each_tr.remove();
+    }
+  start = (current_page - 1)*10
+  end =  start + 10
+  console.log("start-",start)
+  console.log("end-",end)
+  data_arr = []
+  for (var each_key in data){
+  each_element = data[each_key]
+  data_arr.push(each_element)
+  }
+  console.log(data_arr)
+  page_data = data_arr.slice(start, end);
+  console.log(page_data)
+  console.log(typeof page_data)
+
+  for (var i = 0; i < page_data.length; i++) {
+    var obj = page_data[i]
     var tr = document.createElement('TR');
     tableBody.appendChild(tr);
     for (var key in obj) {
       var td = document.createElement('TD');
       var value = obj[key];
-      td.appendChild(document.createTextNode(value));
-      tr.appendChild(td);
+      if (key == "today_rise_percentage" || key == "vol_rise_mv"){
+          var span = document.createElement('span');
+          value = parseFloat(value).toFixed(3)
+          span.classList.add("fas");
+          span.style = "align: center;"
+          if (value < 0){
+              span.classList.add("fa-arrow-down")
+              span.classList.add("text-danger")
+              }
+          else if(value > 0){
+              span.classList.add("fa-arrow-up")
+              span.classList.add("text-success")
+              }
+          else {
+              span.classList.add("fa-arrows-alt-h")
+              span.classList.add("text-success")
+          }
+          span.appendChild(document.createTextNode(" "+value));
+          //td.appendChild(document.createTextNode(value));
+          td.appendChild(span)
+          tr.appendChild(td);
+      }
+      else if(key == "avg_rise"){
+           value = parseFloat(value).toFixed(3)
+           td.appendChild(document.createTextNode(value));
+           tr.appendChild(td);
+      }
+      else if(key == "patterns"){
+           values = value.replace(/\s/g, '').split(",")
+           console.log(values)
+           for (each in values){
+                console.log("****----***")
+                console.log(values[each])
+                if(values[each] != "" && !values[each].startsWith("twenty") && !values[each].startsWith("seven")){
+                    var a = document.createElement('button')
+                    a.type = 'button'
+                    a.classList.add("btn")
+                    a.classList.add("btn-sm")
+                    a.classList.add("btn-info")
+                    // <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
+
+                    a.setAttribute('data-container', 'body');
+                    a.setAttribute('data-toggle', 'popover');
+                    a.setAttribute('data-placement', 'left');
+                    a.setAttribute('data-html', 'true');
+                    a.setAttribute('data-content', timeline_html);
+                    //a.setAttribute('data-content', 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus.');
+                    a.setAttribute('rel', 'popover');
+                    a.style = "font-size:11px;margin-right:4px;"
+                    a.textContent = values[each]
+                    //a.appendChild(document.createTextNode(values[each]))
+                    td.appendChild(a)
+                }
+
+           }
+           tr.appendChild(td);
+      }
+      else if (key == "symbol" || key =="avg_rise") {
+            td.appendChild(document.createTextNode(value));
+            tr.appendChild(td);
+      }
+      else {
+            td.appendChild(document.createTextNode(value));
+            tr.appendChild(td);
+      }
     }
   }
   // myTableDiv.appendChild(table);
 }
 
+function createpageicon(curr_page=1,data,period=15,max_page=6){
+    //alert(typeof data)
+    //alert(curr_page)
+    console.log("data type below")
+    console.log(typeof data)
+    console.log("curr_page - "+curr_page)
+    first_page = curr_page
 
-function addpageicon(current_page_no){
-    console.log("current_page-"+current_page_no)
     ul_element = document.getElementById("ul_pagination");
-    start = current_page_no
-    console.log("start-"+start)
-    end = current_page_no + 3
-    console.log("end-"+end)
-    for (i = start; i < end; i++) {
-    var li = document.createElement('li');
-    var a = document.createElement('a');
-    a.classList.add('page-link')
-    a.href = "/dashboard/"+i;
-    if (i == current_page_no){
-        value = i
-        a.style = "color:green;";
-        a.appendChild(document.createTextNode(value));
-        }
-
+    var all_li = ul_element.querySelectorAll("li");
+    for (j=1;j<all_li.length;j++){
+    each_li = all_li[j];
+    each_li.remove();
+    }
+    start = curr_page;
+    end = curr_page+2;
+    if (end < max_page){
+        second_page = curr_page + 1
+        third_page = curr_page + 2
+        end = curr_page+2;
+    }
     else{
-        a.appendChild(document.createTextNode(i));
+        first_page = max_page - 2
+        second_page = max_page - 1
+        third_page = max_page
+        end=max_page;
+        }
+    prev = start - 1
+    next = end + 1
+    li_element = document.createElement('li');
+    if (start != 1){
+        li_element.innerHTML = "<li><a class='page-link'><span aria-hidden='true'>&laquo;</span></a></li>";
+        li_element.addEventListener("click",function(){createpageicon(prev,data,period)}, false);
+        ul_element.append(li_element)
     }
-
-    if (i == 1){
-    prev_a = document.getElementById("prev_page");
-    prev_a.style.display = "none";
+    //for (i=start;i<=end;i++){
+        li_element = document.createElement('li');
+        li_element.innerHTML = "<li><a class='page-link' style='color:green;'><b>"+first_page+"</b></a></li>";
+        li_element.addEventListener("click",function(){createpageicon(first_page,data,period)}, false);
+        //li_element.style = "color:green;";
+        ul_element.append(li_element)
+         li_element = document.createElement('li');
+        li_element.innerHTML = "<li><a class='page-link'>"+second_page+"</a></li>";
+        li_element.addEventListener("click",function(){createpageicon(second_page,data,period)}, false);
+        ul_element.append(li_element)
+         li_element = document.createElement('li');
+        li_element.innerHTML = "<li><a class='page-link'>"+third_page+"</a></li>";
+        li_element.addEventListener("click",function(){createpageicon(third_page,data,period)}, false);
+        ul_element.append(li_element)
+    //}
+    if (end != 6 && end < max_page ){
+        li_element = document.createElement('li');
+        li_element.innerHTML = "<li><a class='page-link'><span aria-hidden='true'>&raquo;</span></a></li>";
+        li_element.addEventListener("click",function(){createpageicon(next,data,period)}, false);
+        ul_element.append(li_element)
     }
-    li.class = "page-item";
-    li.appendChild(a);
-    ul_element.appendChild(li);
-    console.log(a)
-    }
+    //console.log(data)  createpageicon(1,{{data|safe}})
+    //console.log(typeof data)
+    change_toggle_text_color("period_"+period)
+    addTable(data,curr_page)
+  }
 
-
+function search(source=[],period=15) {
+    console.log("hi")
+    var results;
+    input = document.getElementById("myInput");
+    query_symbol = input.value.toUpperCase();
+    results = $.map(source, function(entry) {
+        var match = entry.symbol.toUpperCase().indexOf(query_symbol) !== -1 || entry.patterns.toUpperCase().indexOf(query_symbol) !== -1;
+        return match ? entry : null;
+    });
+    console.log(results)
+    createpageicon(curr_page=1,results,period,max_page=6)
+    //return results;
 }
 
 
-function searchSymboltable() {
+function searchSymboltable(data) {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
@@ -107,9 +218,36 @@ function searchSymboltable() {
   }
 }
 
+var timeline_html = `
+
+
+<div class="timeline">
+  <div class="container left">
+    <div class="content">
+      <h5>2017</h2>
+      <p>Lorem ipsum .</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h5>2016</h2>
+      <p>Lorem ipsum .</p>
+    </div>
+  </div>
+  <div class="container left">
+    <div class="content">
+      <h5>2015</h2>
+      <p>Lorem ipsum .</p>
+    </div>
+  </div>
+
+  </div>
+</div>`
 
 </script>
 
+<!--<script type=text/javascript src="{{url_for('static', filename='js/main.js') }}"></script>-->
+    <a href="#" data-toggle="popover" data-placement="bottom" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a>
      <div class="col-12 col-xl-12 mb-4">
             <div class="row">
                 <div class="col-12 mb-4">
@@ -117,17 +255,17 @@ function searchSymboltable() {
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <input class="h-75" type="text" id="myInput" background-image="/static/searchicon.png"  onkeyup="searchSymboltable()" placeholder="Search for Symbol or Patterns.." title="Type in a symbol">
-
+                                    <input class='h-75' type='text' id='myInput' background-image='/static/searchicon.png'  onkeyup='search({{data|safe}},{{period}})' placeholder='Search for Symbol or Patterns..' title='Type in a symbol'>
+                                    </input>
                                 <div id="div_timeframe_filter" class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                                   <label class="btn btn-light h-75   active">
-                                        <input type="radio" name="options" id="option1" autocomplete="off" > <p id="last1monthlink" style="color:blue;" onclick = "change_toggle_text_color('last1monthlink')" checked> Last 1 month</p>
+                                   <label class="btn btn-light h-75   active"> <!-- onclick = "change_toggle_text_color('last1monthlink')" -->
+                                        <a href="{{ url_for('dashboard_page',period=30) }}"><input type="radio" name="options" id="option1" autocomplete="off" > <p id="period_30" style="color:blue;" checked> Last 1 month</p></a>
                                     </label>
                                     <label class="btn btn-light h-75 ">
-                                         <input type="radio" name="options" id="option2" autocomplete="off"> <p id="last15dayslink" style="color:blue;" onclick = "change_toggle_text_color('last15dayslink')">Last 15 days</p>
+                                        <a href="{{ url_for('dashboard_page',period=15) }}"><input type="radio" name="options" id="option2" autocomplete="off"> <p id="period_15" style="color:blue;" >Last 15 days</p></a>
                                     </label>
                                     <label class="btn btn-light h-75">
-                                        <input type="radio" name="options" id="option3" autocomplete="off" > <p id="last7dayslink" style="color:blue;" onclick = "change_toggle_text_color('last7dayslink')">Last 7 days</p>
+                                        <a href="{{ url_for('dashboard_page',period=7) }}"><input type="radio" name="options" id="option3" autocomplete="off" > <p id="period_7" style="color:blue;" >Last 7 days</p></a>
                                     </label>
                                 </div>
                                 </div>
@@ -148,39 +286,38 @@ function searchSymboltable() {
 <!--                                    <a href="#" class="btn btn-sm btn-secondary">See all</a>-->
 <!--                                </div>-->
                                 <ul id="ul_pagination" class="pagination">
-                                    <li class="page-item">
+                                    <!--<li class="page-item">
                                       <a id="prev_page" class="page-link" href="/dashboard/{{current_page_no|int - 1}}" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                         <span class="sr-only">Previous</span>
                                       </a>
-                                    </li>
-                                    <script>addpageicon({{current_page_no|safe}});</script>
-                                    <!--
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-                                    <li class="page-item">
-                                      <a class="page-link" href="/dashboard/{{current_page_no|int + 1}}" aria-label="Next">
+                                    </li> -->
+
+                                    <!--<li class="page-item">
+                                      <a class="page-link" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                         <span class="sr-only">Next</span>
                                       </a>
-                                    </li>
+                                    </li> -->
                                   </ul>
                             </div>
                         </div>
                         <div id="div_performance11" class="table-responsive">
-                            <table id="tab_performance" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
-                                <thead class="thead-light">
+                            <table id="tab_performance" cellpadding="0" cellspacing="0" border="0" class="table table-hover table-sm table-bordered table-condensed">
+
+                                <thead class="thead-light ">
                                 <tr>
+                                    <th scope="col">Stock Name</th>
                                     <th scope="col">Symbols</th>
-                                    <th scope="col">Avg. Change</th>
-                                    <th scope="col">Last Change</th>
-                                    <th scope="col">Vol Rise<small>(20 days Moving Avg)</small></th>
-                                    <th scope="col">Pattern Journey</th>
+                                    <th scope="col">Avg. % Change per day </th>
+                                    <th scope="col">Last % Change </th>
+                                    <th scope="col">Vol Rise<small>(20 days MAV)</small></th>
+                                    <th scope="col">Pattern</th>
+                                    <th scope="col">Industry</th>
+                                    <th scope="col">Mutual Fund Houses</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tab_performance_body">
-                                <script>addTable({{data|safe}});</script>
                                 </tbody>
                             </table>
                         </div>
@@ -189,6 +326,16 @@ function searchSymboltable() {
 
             </div>
         </div>
+        <script>
+        createpageicon(1,{{data|safe}},{{period}});
+        </script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+</script>
+
 
 
 <!--        <div class="col-12 col-xl-4 mb-4">-->

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+.timeline {
+  position: relative;
+  display:flex
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+     .content {
+        font-family: sans-serif;
+        margin: 100px auto;
+        text-align: center;
+        color: black;
+        font-size: 40px;
+        max-width: 600px;
+        position: relative;
+      }
+      .content::before {
+        content: "";
+        display: block;
+        width: 150px;
+        height: 5px;
+        background: #CD5C5C;
+        left: 5x;
+        top: 50%;
+        position: absolute;
+      }
+      .content::after {
+        content: "";
+        display: block;
+        width: 150px;
+        height: 5px;
+        background: #CD5C5C;
+        right: 5px;
+        top: 50%;
+        position: absolute;
+      }
+  .content {
+  padding: 1px 2px;
+  background-color: white;
+  position: relative;
+  border-radius: 6px;
+}
+    </style>
+  </head>
+  <body>
+<div class="timeline">
+    <div class=content>
+          <p>2017</p>
+          <p>ok</p>
+          <p>Lorem ipsum .</p>
+    </div>
+
+    <div class=content>
+        <p>2017</p>
+         <p>ok</p>
+       <p>Lorem ipsum .</p>
+    </div>
+</div>
+</body>
+</html>

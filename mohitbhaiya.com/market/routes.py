@@ -6,26 +6,40 @@ from market import db
 from flask_login import login_user, logout_user, login_required, current_user
 import time
 import json
-
+import sqlite3
+from flask import g
 import mysql.connector
 
 
-def get_mysql_connection():
+def connect_to_database():
     conn = mysql.connector.connect(
       host="localhost",
       db='trading',
       user="root",
       password="admin",
+      connection_timeout = 60,
       raise_on_warnings=True
     )
+    print("***NEW CONNECTION **")
     return conn
 
-try:
-    conn = get_mysql_connection()
-except:
-    time.sleep(5)
-    conn = get_mysql_connection()
-    pass
+
+
+def get_db():
+    db = getattr(g, '_database', None)
+    print ("DB_VALUE",db)
+    if db is None:
+        g._database = connect_to_database()
+        db = g._database
+    return db
+
+@app.teardown_appcontext
+def teardown_db(exception):
+    db = getattr(g, '_database', None)
+    print("inside_tear_down db value", db)
+    if db is not None:
+        print("inside_tear_down db not null ")
+        #db.close()
 
 
 @app.route('/')
@@ -33,51 +47,27 @@ except:
 def home_page():
     return render_template('home.html')
 
-@app.route('/dashboard/<string:page_no>')
+
 @app.route('/dashboard',methods=['GET','POST'])
-def dashboard_page(page_no=1):
+def dashboard_page():
+    if request.args.get('period'):
+        period = request.args.get('period')
+    else:
+        period = 15
+    print("**** period ***",period)
     if request.method == "GET":
-        cur = conn.cursor(dictionary=True)
-        query = """with last_record as (
-                            select *,row_number() OVER (PARTITION BY symbol ORDER BY trade_date desc) as row_num from  trading.all_trade_consolidated atc 
-                            where atc.mf_house is not null  -- atc.trade_date=(select max(t.trade_date) from trading.all_trade_consolidated t )
-                            -- and atc.mf_house is not null 
-                         ),
-                         agg_records as (
-                             select symbol,avg(today_rise_percentage) as avg_rise 
-                             from trading.all_trade_consolidated atc2
-                             where atc2.trade_date >= CURDATE() - INTERVAL 21 day
-                             group by symbol
-                             )
-                        select count(*) from agg_records ag
-                        left join last_record lr  on lr.symbol = ag.symbol
-                        where lr.row_num = 1 """
+        cur = get_db().cursor(dictionary=True)
+        #cur.execute("SET SESSION MAX_EXECUTION_TIME=10000")
+        query="select * from trading.website_data_%s order by avg_rise desc ,today_rise_percentage desc"%str(period)
         cur.execute(query)
         data_len = cur.fetchall()[0]
 
-        offset = (int(page_no) - 1) * 10
-        query="""with last_record as (
-                    select *,row_number() OVER (PARTITION BY symbol ORDER BY trade_date desc) as row_num from  trading.all_trade_consolidated atc 
-                    where atc.mf_house is not null  -- atc.trade_date=(select max(t.trade_date) from trading.all_trade_consolidated t )
-                    -- and atc.mf_house is not null 
-                 ),
-                 agg_records as (
-                     select symbol,avg(today_rise_percentage) as avg_rise 
-                     from trading.all_trade_consolidated atc2
-                     where atc2.trade_date >= CURDATE() - INTERVAL 21 day
-                     group by symbol
-                     )
-                select ag.symbol,ag.avg_rise,lr.today_rise_percentage,lr.vol_rise_mv,lr.patterns from agg_records ag
-                left join last_record lr  on lr.symbol = ag.symbol
-                where lr.row_num = 1
-                order by ag.avg_rise desc ,lr.today_rise_percentage desc limit 10 OFFSET %s """%(str(offset))
-
-
+        query="select * from trading.website_data_%s order by avg_rise desc ,today_rise_percentage desc"%str(period)
+        print("query",query)
         cur.execute(query)
         data = cur.fetchall()
         print(json.dumps(data))
-        print("page_no:",page_no)
-        return render_template('dashboard.html',data=json.dumps(data),current_page_no=page_no,max_lenght=data_len)
+        return render_template('dashboard.html',data=json.dumps(data),current_page_no=1,max_lenght=data_len,period=period)
 
 
 @app.route('/market', methods=['GET', 'POST'])
