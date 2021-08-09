@@ -20,7 +20,11 @@ function change_toggle_text_color(p_id)
 
 
 function addTable(data,current_page) {
-    console.log("Table current_page - ",current_page)
+    $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+    ////console.log('inside toggle popover22222')
+    })
+    //console.log("Table current_page - ",current_page)
     var tableBody = document.getElementById("tab_performance_body");
     // remove older TR first
     var all_tr = tableBody.querySelectorAll("TR");
@@ -44,20 +48,35 @@ function addTable(data,current_page) {
       var td = document.createElement('TD');
       var value = obj[key];
       if (key == "companyname") {
-            td.appendChild(document.createTextNode(value.trim()));
+            //td.appendChild(document.createTextNode(value.trim()));
+            upperDiv = document.createElement('div')
+            upperDiv.textContent = value.trim()
+            lowerDiv = document.createElement('div')
             var a = document.createElement('a')
             a.classList.add("badge")
             a.classList.add("badge-pill")
             a.classList.add("badge-primary")
             //var value = obj['industry']
-            a.style = "font-size:7px;float:bottom; clear:left;"
+            a.style = "font-size:7px;text-align: center"//float:bottom; clear:left;"
             a.textContent = obj['industry']
-            td.appendChild(a)
+            lowerDiv.append(a)
+            td.appendChild(upperDiv)
+            td.appendChild(lowerDiv)
             tr.appendChild(td);
       }
       if (key == "symbol") {
         td.appendChild(document.createTextNode(value));
+        play = document.createElement('span')
+        play.classList.add('fas','fa-caret-square-right','primary')
+        play.style = 'color:grey;margin-left:4px;'
+        play.setAttribute('tittle','click for journey')
+        play.setAttribute('name','symbolPlay')
+        play.setAttribute('value','hidden')
+        play.setAttribute('id','symbolPlay')
+        play.addEventListener("click",function(){showHide(value)}, false);
+        td.appendChild(play);
         tr.appendChild(td);
+
       }
       if(key == "avg_rise"){
            value = parseFloat(value).toFixed(3)
@@ -95,30 +114,37 @@ function addTable(data,current_page) {
                     a.classList.add("btn")
                     a.classList.add("btn-sm")
                     a.classList.add("btn-info")
-                    a.setAttribute('data-container', 'body');
-                    a.setAttribute('data-toggle', 'popover');
-                    a.setAttribute('data-placement', 'left');
-                    a.setAttribute('data-html', 'true');
-                    a.setAttribute('data-content', timeline_html);
-                    a.setAttribute('rel', 'popover');
                     a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
                     a.textContent = values[each]
                     td.appendChild(a)
                 }
 
            }
+           var more = document.createElement('a')
+            more.classList.add("badge")
+            more.classList.add("badge-pill")
+            more.classList.add("badge-primary")
+            more.style = "font-size:12px;margin-right:4px;margin-bottom: 4px;"
+            more.setAttribute('data-container', 'body');
+            more.setAttribute('data-toggle', 'popover');
+            more.setAttribute('data-placement', 'bottom');
+            more.setAttribute('data-html', 'true');
+            more.setAttribute('data-content',getPatterJourney(obj['pattern_journey']));
+            more.setAttribute('rel', 'popover');
+            more.textContent = "+"
+            td.appendChild(more)
            tr.appendChild(td);
       }
 
       if(key=="mf_house"){
                if (value){
                    values = value.replace(/,/g, '').slice(0, -1).split("|")
-                   console.log("***mutual fund****")
-                   console.log(values)
+                   //console.log("***mutual fund****")
+                   //console.log(values)
                    actual_len = values.length
-                   console.log("Actual Lenght ---"+actual_len)
+                   //console.log("Actual Lenght ---"+actual_len)
                    remaining_length = actual_len - 2
-                   console.log("remaining Lenght ---"+remaining_length)
+                   //console.log("remaining Lenght ---"+remaining_length)
                    //td.appendChild(document.createTextNode(value+actual_len+remaining_length));
                    if (actual_len <= 2){
                         for(each in values){
@@ -133,9 +159,9 @@ function addTable(data,current_page) {
                               }
                         }
                    }
-                   else{j=0
+                   else{k=0
                         for(each in values){
-                            if (j < 2){
+                            if (k < 2){
                                   if (values[each] != ""){
                                     var a = document.createElement('a')
                                     a.classList.add("badge")
@@ -144,7 +170,7 @@ function addTable(data,current_page) {
                                     a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
                                     a.textContent = values[each]
                                     td.appendChild(a)
-                                    j = j + 1
+                                    k = k + 1
                                   }
                             }
                         }
@@ -157,7 +183,7 @@ function addTable(data,current_page) {
                         a.setAttribute('data-toggle', 'popover');
                         a.setAttribute('data-placement', 'bottom');
                         a.setAttribute('data-html', 'true');
-                        a.setAttribute('data-content',values.slice(2).join() );
+                        a.setAttribute('data-content',values.slice(2).join('; ') );
                         a.setAttribute('rel', 'popover');
                         a.textContent = "+"+remaining_length
                         td.appendChild(a)
@@ -172,6 +198,30 @@ function addTable(data,current_page) {
       } */
     }
   }
+}
+
+
+function getPatterJourney(data){
+    //console.log("PATTERN JOURNEY")
+    items = data.split('-->')
+    ul = document.createElement('ul')
+    ul.classList.add("list-group")
+    for (each  in items){
+        li = document.createElement('li')
+        li.classList.add("list-group-item")
+        a = document.createElement('a')
+        date = items[each].split('=')[0]
+        value = items[each].split('=')[1]
+        bold = document.createElement('b')
+        bold.appendChild(document.createTextNode(date+":"))
+        a.appendChild(bold)
+        //a.textContent = val
+        a.appendChild(document.createTextNode( value))
+        li.appendChild(a);
+        ul.append(li)
+        }
+    //console.log(ul)
+    return ul.outerHTML;
 }
 
 function createpageicon(curr_page=1,data,period=15,max_page=6){
@@ -250,6 +300,18 @@ function search(source=[],period=15) {
     //return results;
 }
 
+function showHide(symbol='infy') {
+    div = document.getElementById("show_hide_div");
+        if (div.style.display == 'none')
+        {
+            div.style.display = ''
+        }
+        else{
+            div.style.display = 'none'
+        }
+
+}
+
 
 function searchSymboltable(data) {
   var input, filter, table, tr, td, i, txtValue;
@@ -273,8 +335,10 @@ function searchSymboltable(data) {
   }
 }
 
-var timeline_html = `
 
+
+
+var timeline_html = `
 
 <div class="timeline">
   <div class="container left">
@@ -374,6 +438,10 @@ var timeline_html = `
                                 <tbody id="tab_performance_body">
                                 </tbody>
                             </table>
+
+                            <div id="show_hide_div" style="display: none">
+                                <p>Yo Man !!!!</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -383,11 +451,12 @@ var timeline_html = `
         <script>
         createpageicon(1,{{data|safe}},{{period}});
         </script>
-<script>
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-});
-</script>
+<!--<script>-->
+<!--$(document).ready(function(){-->
+<!--    $('[data-toggle="popover"]').popover();-->
+<!--    console.log('inside toggle popover111')-->
+<!--});-->
+<!--</script>-->
 </script>
 
 
