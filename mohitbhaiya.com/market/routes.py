@@ -5,6 +5,7 @@ from market.forms import RegisterForm, LoginForm, PurchaseItemForm
 from market import db
 from flask_login import login_user, logout_user, login_required, current_user
 import time
+import datetime
 import json
 import sqlite3
 from flask import g
@@ -23,7 +24,9 @@ def connect_to_database():
     print("***NEW CONNECTION **")
     return conn
 
-
+def myconverter(o):
+    if isinstance(o, datetime.date):
+        return o.__str__()
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -67,7 +70,14 @@ def dashboard_page():
         cur.execute(query)
         data = cur.fetchall()
         print(json.dumps(data))
-        return render_template('dashboard.html',data=json.dumps(data),current_page_no=1,max_lenght=data_len,period=period)
+        
+        query = "select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL %s day"%str(period)
+        print("query", query)
+        cur.execute(query)
+        all_data = cur.fetchall()
+        all_data = json.dumps(all_data,default=myconverter)
+        print (all_data)
+        return render_template('dashboard.html',data=json.dumps(data),all_data=all_data, current_page_no=1,max_lenght=data_len,period=period)
 
 
 @app.route('/market', methods=['GET', 'POST'])

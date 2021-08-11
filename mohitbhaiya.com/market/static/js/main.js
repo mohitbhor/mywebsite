@@ -33,7 +33,7 @@ function getPatterJourney(data){
     //console.log(ul)
     return ul.outerHTML;
 }
-function createpageicon(curr_page=1,data,period=15,max_page=6){
+function createpageicon(curr_page=1,data,all_data,period=15,max_page=6){
     first_page = curr_page
     ul_element = document.getElementById("ul_pagination");
     var all_li = ul_element.querySelectorAll("li");
@@ -59,36 +59,36 @@ function createpageicon(curr_page=1,data,period=15,max_page=6){
     li_element = document.createElement('li');
     if (start != 1){
         li_element.innerHTML = "<li><a class='page-link'><span aria-hidden='true'>&laquo;</span></a></li>";
-        li_element.addEventListener("click",function(){createpageicon(prev,data,period)}, false);
+        li_element.addEventListener("click",function(){createpageicon(prev,data,all_data,period)}, false);
         ul_element.append(li_element)
     }
     //for (i=start;i<=end;i++){
         li_element = document.createElement('li');
         li_element.innerHTML = "<li><a class='page-link' style='color:green;'><b>"+first_page+"</b></a></li>";
-        li_element.addEventListener("click",function(){createpageicon(first_page,data,period)}, false);
+        li_element.addEventListener("click",function(){createpageicon(first_page,data,all_data,period)}, false);
         //li_element.style = "color:green;";
         ul_element.append(li_element)
          li_element = document.createElement('li');
         li_element.innerHTML = "<li><a class='page-link'>"+second_page+"</a></li>";
-        li_element.addEventListener("click",function(){createpageicon(second_page,data,period)}, false);
+        li_element.addEventListener("click",function(){createpageicon(second_page,data,all_data,period)}, false);
         ul_element.append(li_element)
          li_element = document.createElement('li');
         li_element.innerHTML = "<li><a class='page-link'>"+third_page+"</a></li>";
-        li_element.addEventListener("click",function(){createpageicon(third_page,data,period)}, false);
+        li_element.addEventListener("click",function(){createpageicon(third_page,data,all_data,period)}, false);
         ul_element.append(li_element)
     //}
     if (end != 6 && end < max_page ){
         li_element = document.createElement('li');
         li_element.innerHTML = "<li><a class='page-link'><span aria-hidden='true'>&raquo;</span></a></li>";
-        li_element.addEventListener("click",function(){createpageicon(next,data,period)}, false);
+        li_element.addEventListener("click",function(){createpageicon(next,data,all_data,period)}, false);
         ul_element.append(li_element)
     }
     //console.log(data)  createpageicon(1,{{data|safe}})
     //console.log(typeof data)
     change_toggle_text_color("period_"+period)
-    addTable(data,curr_page)
+    addTable(data,curr_page,all_data)
   }
-function search(source=[],period=15) {
+function search(source=[],all_data,period=15) {
     //console.log("hi")
     var results;
     input = document.getElementById("myInput");
@@ -98,21 +98,178 @@ function search(source=[],period=15) {
         return match ? entry : null;
     });
     //console.log(results)
-    createpageicon(curr_page=1,results,period,max_page=6)
+    createpageicon(curr_page=1,results,all_data,period,max_page=6)
     //return results;
 }
-function showHide(tr_id) {
-        tr = document.getElementById(tr_id);
-        console.log(tr)
-        if (tr.style.display == 'none')
-        {
-            tr.style.display = ''
+
+function showHideGraph(tr_id,symbol,all_data){
+        console.log("inside showhidegraph")
+        console.log("TR ID -> "+tr_id)
+        console.log("symbol -> "+symbol)
+        hidden_tr = document.getElementById(tr_id);
+        hidden_td = document.getElementById(tr_id.replace('tr','td'));
+        console.log(hidden_tr)
+        console.log(hidden_td)
+        console.log(all_data)
+        filteredRecords = []
+        for (each in all_data){
+            if (all_data[each]['symbol'] == symbol ){
+                 record = all_data[each]
+                 console.log("showhidegraph")
+                 console.log(record)
+                 filteredRecords.push(record)
+                 }
+        }
+        if (hidden_tr.style.display == 'none'){
+            hidden_tr.style.display = ''
+            div = createDiv(symbol)
+            hidden_td.append(div)
+            console.log(hidden_tr)
+            priceChartId= "canvas1_"+symbol
+            createPriceChart(priceChartId,filteredRecords)
+            volChartId= "canvas2_"+symbol
+            createVolumeChart(volChartId,filteredRecords)
+            delChartId= "canvas3_"+symbol
+            createDeliveryChart(delChartId,filteredRecords)
         }
         else{
-            tr.style.display = 'none'
+            hidden_tr.style.display = 'none'
         }
-
 }
+
+function createPriceChart(chartId,data){
+    trade_date=[]
+    close_price=[]
+    close_price_mv = []
+    for (each in data){
+        console.log("*****")
+//        console.log(data[each])
+        trade_date.push(data[each]['trade_date'])
+        close_price.push(data[each]['close_price'])
+        close_price_mv.push(data[each]['20_day_cp_mv_avg'])
+    }
+    var xValues = trade_date//[100,200,300,400,500,600,700,800,900,1000];
+    new Chart(chartId, {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+          label: 'Last Close Price',
+          data: close_price,
+          borderColor: "red",
+          fill: false
+        }, {
+          label: 'Close Price 20 Moving Avg',
+          data: close_price_mv,
+          borderColor: "green",
+          fill: false
+        }]
+      },
+      options: {
+        legend: {display: true}
+      }
+    });
+}
+
+function createVolumeChart(chartId,data){
+    trade_date=[]
+    daily_vol=[]
+    daily_vol_mv = []
+    for (each in data){
+        trade_date.push(data[each]['trade_date'])
+        daily_vol.push(data[each]['trade_quantity_thousand'])
+        daily_vol_mv.push(data[each]['20_day_vol_mv_avg'])
+    }
+    var xValues = trade_date//[100,200,300,400,500,600,700,800,900,1000];
+    new Chart(chartId, {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+          label: 'Volume Daily',
+          data: daily_vol,
+          borderColor: "red",
+          fill: false
+        }, {
+          label: 'Volume 20 days Moving Avg',
+          data: daily_vol_mv,
+          borderColor: "green",
+          fill: false
+        }]
+      },
+      options: {
+        legend: {display: true}
+      }
+    });
+}
+
+function createDeliveryChart(chartId,data){
+    trade_date=[]
+    daily_del=[]
+    daily_del_mv = []
+    for (each in data){
+        trade_date.push(data[each]['trade_date'])
+        daily_del.push(data[each]['delivery_percentage'])
+        daily_del_mv.push(data[each]['20_day_del_mv_avg'])
+    }
+    var xValues = trade_date//[100,200,300,400,500,600,700,800,900,1000];
+    new Chart(chartId, {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+         label: 'Delivery %',
+          data: daily_del,
+          borderColor: "red",
+          fill: false
+        }, {
+          label: 'Delivery % Moving Avg.(20 day)',
+          data: daily_del_mv,
+          borderColor: "green",
+          fill: false
+        }]
+      },
+      options: {
+        legend: {display: true}
+      }
+    });
+}
+
+function createDiv(symbol){
+    rowDiv = document.createElement('div')
+    rowDiv.classList.add('row')
+    rowDiv.setAttribute('id', 'rowdiv_'+symbol);
+    rowDiv.style.display = ""
+
+
+    colDiv1 = document.createElement('div')
+    colDiv1.classList.add('col')
+    canvas1 = document.createElement('canvas')
+    canvas1.setAttribute('id', 'canvas1_'+symbol);
+    canvas1.style = "width:100%;max-width:450px"
+    colDiv1.appendChild(canvas1)
+
+    colDiv2 = document.createElement('div')
+    colDiv2.classList.add('col')
+    canvas2 = document.createElement('canvas')
+    canvas2.setAttribute('id', 'canvas2_'+symbol);
+    canvas2.style = "width:100%;max-width:450px;margin-left:10px"
+    colDiv2.appendChild(canvas2)
+
+    colDiv3 = document.createElement('div')
+    colDiv3.classList.add('col')
+    canvas3 = document.createElement('canvas')
+    canvas3.setAttribute('id', 'canvas3_'+symbol);
+    canvas3.style = "width:100%;max-width:450px;margin-left:10px"
+    colDiv3.appendChild(canvas3)
+
+    rowDiv.appendChild(colDiv1)
+    rowDiv.appendChild(colDiv2)
+    rowDiv.appendChild(colDiv3)
+
+    return rowDiv
+}
+
 function searchSymboltable(data) {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
@@ -135,7 +292,8 @@ function searchSymboltable(data) {
   }
 }
 
-function addTable(data,current_page) {
+function addTable(data,current_page,all_data) {
+
     $(document).ready(function(){
     $('[data-toggle="popover"]').popover();})
     var tableBody = document.getElementById("tab_performance_body");
@@ -156,6 +314,7 @@ function addTable(data,current_page) {
     for (var i = 0; i < page_data.length; i++) {
         var obj = page_data[i]
         var tr = document.createElement('TR');
+        tr.setAttribute('id',i);
         tableBody.appendChild(tr);
         for (var key in obj) {
               var td = document.createElement('TD');
@@ -181,11 +340,14 @@ function addTable(data,current_page) {
                 td.appendChild(document.createTextNode(value));
                 play = document.createElement('span')
                 trId = "showhidetr"+i.toString()
-                console.log('the tr is -'+trId)
-                var play = htmlToElement('<a><i class="fa fa-line-chart secondary"  style="margin-left:4px;" tittle="click here for detail" onclick="showHide(\''+trId+'\')"+></i></a>')
+                console.log('the tr before calling on click is ->'+trId)
+                allDataString = JSON.stringify(all_data)
+                console.log(typeof allDataString)
+                var play = htmlToElement('<a><i class="fa fa-line-chart secondary"  style="margin-left:4px;" tittle="click here for detail"></i></a>')
+
+                play.addEventListener("click", makeItHappenDelegate(trId,obj['symbol'],all_data))
                 td.appendChild(play);
                 tr.appendChild(td);
-
               }
               if(key == "avg_rise"){
                    value = parseFloat(value).toFixed(3)
@@ -229,19 +391,19 @@ function addTable(data,current_page) {
                         }
 
                    }
-                   var more = document.createElement('a')
-                    more.classList.add("badge")
-                    more.classList.add("badge-pill")
-                    more.classList.add("badge-primary")
-                    more.style = "font-size:12px;margin-right:4px;margin-bottom: 4px;"
-                    more.setAttribute('data-container', 'body');
-                    more.setAttribute('data-toggle', 'popover');
-                    more.setAttribute('data-placement', 'bottom');
-                    more.setAttribute('data-html', 'true');
-                    more.setAttribute('data-content',getPatterJourney(obj['pattern_journey']));
-                    more.setAttribute('rel', 'popover');
-                    more.textContent = "+"
-                    td.appendChild(more)
+//                   var more = document.createElement('a')
+//                    more.classList.add("badge")
+//                    more.classList.add("badge-pill")
+//                    more.classList.add("badge-primary")
+//                    more.style = "font-size:12px;margin-right:4px;margin-bottom: 4px;"
+//                    more.setAttribute('data-container', 'body');
+//                    more.setAttribute('data-toggle', 'popover');
+//                    more.setAttribute('data-placement', 'bottom');
+//                    more.setAttribute('data-html', 'true');
+//                    more.setAttribute('data-content',getPatterJourney(obj['pattern_journey']));
+//                    more.setAttribute('rel', 'popover');
+//                    more.textContent = "+"
+//                    td.appendChild(more)
                    tr.appendChild(td);
               }
               if(key=="mf_house"){
@@ -311,14 +473,23 @@ function addTable(data,current_page) {
         //hidden_para.style.display = "None";
         hidden_tr.style.display = "none"
         //hidden_para.textContent = "YO MAN "
-        var divString = '<div id="show_hide_div" style="display: "  class="row"><div class="col"><canvas id="myChart'+i.toString()+'" style="width:100%;max-width:400px"></canvas></div><div class="col"><canvas id="myChart'+(i+1).toString()+'" style="width:100%;max-width:500px"></canvas></div></div>'
-        divElement = htmlToElement(divString)
-        hidden_td.appendChild(divElement);
+//        var divString = '<div id="show_hide_div" style="display: "  class="row"><div class="col"><canvas id="myChart'+i.toString()+'" style="width:100%;max-width:400px"></canvas></div><div class="col"><canvas id="myChart'+(i+1).toString()+'" style="width:100%;max-width:500px"></canvas></div></div>'
+//        divElement = htmlToElement(divString)
+//        hidden_td.appendChild(divElement);
         hidden_tr.appendChild(hidden_td);
         tableBody.appendChild(hidden_tr);
       }
 }
 
+function makeItHappenDelegate(a, b,c) {
+  console.log("just after onclick ")
+  console.log(a)
+  console.log(b)
+  console.log(c)
+  return function(){
+      showHideGraph(a, b, c)
+  }
+}
 function htmlToElement(html) {
     var template = document.createElement('template');
     html = html.trim(); // Never return a text node of whitespace as the result
