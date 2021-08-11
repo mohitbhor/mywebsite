@@ -1,5 +1,6 @@
-function change_toggle_text_color(p_id)
-{   //window.location.href = '/dashboard?period=30'
+
+
+function change_toggle_text_color(p_id){   //window.location.href = '/dashboard?period=30'
     var searchEles = document.getElementById("div_timeframe_filter").querySelectorAll("p");
     for(var i = 0; i < searchEles.length; i++) {
         if(searchEles[i].id == p_id) {
@@ -10,58 +11,30 @@ function change_toggle_text_color(p_id)
         }
     }
 }
-
-
-function addTable(data,current_page) {
-  var tableBody = document.getElementById("tab_performance_body");
-  // remove older TR first
-  var all_tr = tableBody.querySelectorAll("TR");
-  for (j=0;j<all_tr.length;j++){
-    each_tr = all_tr[j];
-    each_tr.remove();
-    }
-
-  start = (current_page - 1)*10
-  end =  start + 10
-  console.log("start-",start)
-  console.log("end-",end)
-  data_arr = []
-
-  for (var each_key in data){
-    each_element = data[each_key]
-    data_arr.push(each_element)
-  }
-  page_data = data_arr.slice(start, end);
-
-  for (var i = 0; i < page_data.length; i++) {
-    var obj = page_data[i]
-    var tr = document.createElement('TR');
-    tableBody.appendChild(tr);
-    for (var key in obj) {
-      var td = document.createElement('TD');
-      var value = obj[key];
-      console.log("keys---")
-      console.log(key)
-      if (key!="patterns"){
-          td.appendChild(document.createTextNode(value));
-          tr.appendChild(td);
-      }
-      else{
-           td.appendChild(document.createTextNode("1111    1111"));
-           tr.appendChild(td);
-      }
-    }
-  }
+function getPatterJourney(data){
+    //console.log("PATTERN JOURNEY")
+    items = data.split('-->')
+    ul = document.createElement('ul')
+    ul.classList.add("list-group")
+    for (each  in items){
+        li = document.createElement('li')
+        li.classList.add("list-group-item")
+        a = document.createElement('a')
+        date = items[each].split('=')[0]
+        value = items[each].split('=')[1]
+        bold = document.createElement('b')
+        bold.appendChild(document.createTextNode(date+":"))
+        a.appendChild(bold)
+        //a.textContent = val
+        a.appendChild(document.createTextNode( value))
+        li.appendChild(a);
+        ul.append(li)
+        }
+    //console.log(ul)
+    return ul.outerHTML;
 }
-
-function createpageicon(curr_page=1,data,period=15,max_page=10){
-    //alert(typeof data)
-    //alert(curr_page)
-    console.log("data type below")
-    console.log(typeof data)
-    console.log("curr_page - "+curr_page)
+function createpageicon(curr_page=1,data,period=15,max_page=6){
     first_page = curr_page
-
     ul_element = document.getElementById("ul_pagination");
     var all_li = ul_element.querySelectorAll("li");
     for (j=1;j<all_li.length;j++){
@@ -115,9 +88,8 @@ function createpageicon(curr_page=1,data,period=15,max_page=10){
     change_toggle_text_color("period_"+period)
     addTable(data,curr_page)
   }
-
-function search(source=[]) {
-    console.log("hi")
+function search(source=[],period=15) {
+    //console.log("hi")
     var results;
     input = document.getElementById("myInput");
     query_symbol = input.value.toUpperCase();
@@ -125,12 +97,22 @@ function search(source=[]) {
         var match = entry.symbol.toUpperCase().indexOf(query_symbol) !== -1 || entry.patterns.toUpperCase().indexOf(query_symbol) !== -1;
         return match ? entry : null;
     });
-    console.log(results)
-    createpageicon(curr_page=1,results,max_page=6)
+    //console.log(results)
+    createpageicon(curr_page=1,results,period,max_page=6)
     //return results;
 }
+function showHide(tr_id) {
+        tr = document.getElementById(tr_id);
+        console.log(tr)
+        if (tr.style.display == 'none')
+        {
+            tr.style.display = ''
+        }
+        else{
+            tr.style.display = 'none'
+        }
 
-
+}
 function searchSymboltable(data) {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
@@ -151,4 +133,218 @@ function searchSymboltable(data) {
       }
     }
   }
+}
+
+function addTable(data,current_page) {
+    $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();})
+    var tableBody = document.getElementById("tab_performance_body");
+    // remove older TR first
+    var all_tr = tableBody.querySelectorAll("TR");
+    for (j=0;j<all_tr.length;j++){
+        each_tr = all_tr[j];
+        each_tr.remove();
+    }
+    start = (current_page - 1)*10
+    end =  start + 10
+    data_arr = []
+    for (var each_key in data){
+        each_element = data[each_key]
+        data_arr.push(each_element)
+    }
+    page_data = data_arr.slice(start, end);
+    for (var i = 0; i < page_data.length; i++) {
+        var obj = page_data[i]
+        var tr = document.createElement('TR');
+        tableBody.appendChild(tr);
+        for (var key in obj) {
+              var td = document.createElement('TD');
+              var value = obj[key];
+              if (key == "companyname") {
+                    //td.appendChild(document.createTextNode(value.trim()));
+                    upperDiv = document.createElement('div')
+                    upperDiv.textContent = value.trim()
+                    lowerDiv = document.createElement('div')
+                    var a = document.createElement('a')
+                    a.classList.add("badge")
+                    a.classList.add("badge-pill")
+                    a.classList.add("badge-primary")
+                    //var value = obj['industry']
+                    a.style = "font-size:7px;text-align: center"//float:bottom; clear:left;"
+                    a.textContent = obj['industry']
+                    lowerDiv.append(a)
+                    td.appendChild(upperDiv)
+                    td.appendChild(lowerDiv)
+                    tr.appendChild(td);
+              }
+              if (key == "symbol") {
+                td.appendChild(document.createTextNode(value));
+                play = document.createElement('span')
+                trId = "showhidetr"+i.toString()
+                console.log('the tr is -'+trId)
+                var play = htmlToElement('<a><i class="fa fa-line-chart secondary"  style="margin-left:4px;" tittle="click here for detail" onclick="showHide(\''+trId+'\')"+></i></a>')
+                td.appendChild(play);
+                tr.appendChild(td);
+
+              }
+              if(key == "avg_rise"){
+                   value = parseFloat(value).toFixed(3)
+                   td.appendChild(document.createTextNode(value));
+                   tr.appendChild(td);
+              }
+              if (key == "today_rise_percentage" || key == "vol_rise_mv" || key == "del_rise_mv"){
+                  var span = document.createElement('span');
+                  value = parseFloat(value).toFixed(3)
+                  span.classList.add("fas");
+                  span.style = "align: center;"
+                  if (value < 0){
+                      span.classList.add("fa-arrow-down")
+                      span.classList.add("text-danger")
+                      }
+                  else if(value > 0){
+                      span.classList.add("fa-arrow-up")
+                      span.classList.add("text-success")
+                      }
+                  else {
+                      span.classList.add("fa-arrows-alt-h")
+                      span.classList.add("text-success")
+                  }
+                  span.appendChild(document.createTextNode(" "+value));
+                  //td.appendChild(document.createTextNode(value));
+                  td.appendChild(span)
+                  tr.appendChild(td);
+              }
+              if(key == "patterns"){
+                   values = value.replace(/\s/g, '').split(",")
+                   for (each in values){
+                        if(values[each] != "" && !values[each].startsWith("twenty") && !values[each].startsWith("seven")){
+                            var a = document.createElement('button')
+                            a.type = 'button'
+                            a.classList.add("btn")
+                            a.classList.add("btn-sm")
+                            a.classList.add("btn-info")
+                            a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
+                            a.textContent = values[each]
+                            td.appendChild(a)
+                        }
+
+                   }
+                   var more = document.createElement('a')
+                    more.classList.add("badge")
+                    more.classList.add("badge-pill")
+                    more.classList.add("badge-primary")
+                    more.style = "font-size:12px;margin-right:4px;margin-bottom: 4px;"
+                    more.setAttribute('data-container', 'body');
+                    more.setAttribute('data-toggle', 'popover');
+                    more.setAttribute('data-placement', 'bottom');
+                    more.setAttribute('data-html', 'true');
+                    more.setAttribute('data-content',getPatterJourney(obj['pattern_journey']));
+                    more.setAttribute('rel', 'popover');
+                    more.textContent = "+"
+                    td.appendChild(more)
+                   tr.appendChild(td);
+              }
+              if(key=="mf_house"){
+                       if (value){
+                           values = value.replace(/,/g, '').slice(0, -1).split("|")
+                           //console.log("***mutual fund****")
+                           //console.log(values)
+                           actual_len = values.length
+                           //console.log("Actual Lenght ---"+actual_len)
+                           remaining_length = actual_len - 2
+                           //console.log("remaining Lenght ---"+remaining_length)
+                           //td.appendChild(document.createTextNode(value+actual_len+remaining_length));
+                           if (actual_len <= 2){
+                                for(each in values){
+                                      if (value[each] != ""){
+                                        var a = document.createElement('a')
+                                        a.classList.add("badge")
+                                        a.classList.add("badge-pill")
+                                        a.classList.add("badge-secondary")
+                                        a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
+                                        a.textContent = values[each]
+                                        td.appendChild(a)
+                                      }
+                                }
+                           }
+                           else{k=0
+                                for(each in values){
+                                    if (k < 2){
+                                          if (values[each] != ""){
+                                            var a = document.createElement('a')
+                                            a.classList.add("badge")
+                                            a.classList.add("badge-pill")
+                                            a.classList.add("badge-secondary")
+                                            a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
+                                            a.textContent = values[each]
+                                            td.appendChild(a)
+                                            k = k + 1
+                                          }
+                                    }
+                                }
+                                var a = document.createElement('a')
+                                a.classList.add("badge")
+                                a.classList.add("badge-pill")
+                                a.classList.add("badge-primary")
+                                a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
+                                a.setAttribute('data-container', 'body');
+                                a.setAttribute('data-toggle', 'popover');
+                                a.setAttribute('data-placement', 'bottom');
+                                a.setAttribute('data-html', 'true');
+                                a.setAttribute('data-content',values.slice(2).join('; ') );
+                                a.setAttribute('rel', 'popover');
+                                a.textContent = "+"+remaining_length
+                                td.appendChild(a)
+
+                           }
+                       }
+                       tr.appendChild(td);
+                   }
+        }
+        var hidden_tr = document.createElement('TR');
+        var hidden_td = document.createElement('TD');
+        hidden_td.setAttribute('colspan',8);
+        //hidden_td.textContent = "show_hide_td_"+i
+        hidden_td.setAttribute('id',"showhidetd"+i);
+        hidden_tr.setAttribute('id',"showhidetr"+i);
+        //var hidden_para = document.createElement('p');
+        //hidden_para.style.display = "None";
+        hidden_tr.style.display = "none"
+        //hidden_para.textContent = "YO MAN "
+        var divString = '<div id="show_hide_div" style="display: "  class="row"><div class="col"><canvas id="myChart'+i.toString()+'" style="width:100%;max-width:400px"></canvas></div><div class="col"><canvas id="myChart'+(i+1).toString()+'" style="width:100%;max-width:500px"></canvas></div></div>'
+        divElement = htmlToElement(divString)
+        hidden_td.appendChild(divElement);
+        hidden_tr.appendChild(hidden_td);
+        tableBody.appendChild(hidden_tr);
+      }
+}
+
+function htmlToElement(html) {
+    var template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+
+function getPatterJourney(data){
+    //console.log("PATTERN JOURNEY")
+    items = data.split('-->')
+    ul = document.createElement('ul')
+    ul.classList.add("list-group")
+    for (each  in items){
+        li = document.createElement('li')
+        li.classList.add("list-group-item")
+        a = document.createElement('a')
+        date = items[each].split('=')[0]
+        value = items[each].split('=')[1]
+        bold = document.createElement('b')
+        bold.appendChild(document.createTextNode(date+":"))
+        a.appendChild(bold)
+        //a.textContent = val
+        a.appendChild(document.createTextNode( value))
+        li.appendChild(a);
+        ul.append(li)
+        }
+    //console.log(ul)
+    return ul.outerHTML;
 }

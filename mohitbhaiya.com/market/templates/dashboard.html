@@ -3,369 +3,9 @@
 Dashboard
 {% endblock %}
 {% block content %}
+<script type=text/javascript src="{{url_for('static', filename='js/main.js') }}"></script>
+<script type=text/javascript src="{{url_for('static', filename='js/viz.js') }}"></script>
 
-<script>
-function change_toggle_text_color(p_id)
-{   //window.location.href = '/dashboard?period=30'
-    var searchEles = document.getElementById("div_timeframe_filter").querySelectorAll("p");
-    for(var i = 0; i < searchEles.length; i++) {
-        if(searchEles[i].id == p_id) {
-            searchEles[i].style = "color:green;";
-            }
-        else {
-            searchEles[i].style = "color:blue;";
-        }
-    }
-}
-
-
-function addTable(data,current_page) {
-    $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();
-    ////console.log('inside toggle popover22222')
-    })
-    //console.log("Table current_page - ",current_page)
-    var tableBody = document.getElementById("tab_performance_body");
-    // remove older TR first
-    var all_tr = tableBody.querySelectorAll("TR");
-    for (j=0;j<all_tr.length;j++){
-    each_tr = all_tr[j];
-    each_tr.remove();
-    }
-    start = (current_page - 1)*10
-    end =  start + 10
-    data_arr = []
-    for (var each_key in data){
-    each_element = data[each_key]
-    data_arr.push(each_element)
-    }
-    page_data = data_arr.slice(start, end);
-    for (var i = 0; i < page_data.length; i++) {
-    var obj = page_data[i]
-    var tr = document.createElement('TR');
-    tableBody.appendChild(tr);
-    for (var key in obj) {
-      var td = document.createElement('TD');
-      var value = obj[key];
-      if (key == "companyname") {
-            //td.appendChild(document.createTextNode(value.trim()));
-            upperDiv = document.createElement('div')
-            upperDiv.textContent = value.trim()
-            lowerDiv = document.createElement('div')
-            var a = document.createElement('a')
-            a.classList.add("badge")
-            a.classList.add("badge-pill")
-            a.classList.add("badge-primary")
-            //var value = obj['industry']
-            a.style = "font-size:7px;text-align: center"//float:bottom; clear:left;"
-            a.textContent = obj['industry']
-            lowerDiv.append(a)
-            td.appendChild(upperDiv)
-            td.appendChild(lowerDiv)
-            tr.appendChild(td);
-      }
-      if (key == "symbol") {
-        td.appendChild(document.createTextNode(value));
-        play = document.createElement('span')
-        play.classList.add('fas','fa-caret-square-right','primary')
-        play.style = 'color:grey;margin-left:4px;'
-        play.setAttribute('tittle','click for journey')
-        play.setAttribute('name','symbolPlay')
-        play.setAttribute('value','hidden')
-        play.setAttribute('id','symbolPlay')
-        play.addEventListener("click",function(){showHide(value)}, false);
-        td.appendChild(play);
-        tr.appendChild(td);
-
-      }
-      if(key == "avg_rise"){
-           value = parseFloat(value).toFixed(3)
-           td.appendChild(document.createTextNode(value));
-           tr.appendChild(td);
-      }
-      if (key == "today_rise_percentage" || key == "vol_rise_mv" || key == "del_rise_mv"){
-          var span = document.createElement('span');
-          value = parseFloat(value).toFixed(3)
-          span.classList.add("fas");
-          span.style = "align: center;"
-          if (value < 0){
-              span.classList.add("fa-arrow-down")
-              span.classList.add("text-danger")
-              }
-          else if(value > 0){
-              span.classList.add("fa-arrow-up")
-              span.classList.add("text-success")
-              }
-          else {
-              span.classList.add("fa-arrows-alt-h")
-              span.classList.add("text-success")
-          }
-          span.appendChild(document.createTextNode(" "+value));
-          //td.appendChild(document.createTextNode(value));
-          td.appendChild(span)
-          tr.appendChild(td);
-      }
-      if(key == "patterns"){
-           values = value.replace(/\s/g, '').split(",")
-           for (each in values){
-                if(values[each] != "" && !values[each].startsWith("twenty") && !values[each].startsWith("seven")){
-                    var a = document.createElement('button')
-                    a.type = 'button'
-                    a.classList.add("btn")
-                    a.classList.add("btn-sm")
-                    a.classList.add("btn-info")
-                    a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
-                    a.textContent = values[each]
-                    td.appendChild(a)
-                }
-
-           }
-           var more = document.createElement('a')
-            more.classList.add("badge")
-            more.classList.add("badge-pill")
-            more.classList.add("badge-primary")
-            more.style = "font-size:12px;margin-right:4px;margin-bottom: 4px;"
-            more.setAttribute('data-container', 'body');
-            more.setAttribute('data-toggle', 'popover');
-            more.setAttribute('data-placement', 'bottom');
-            more.setAttribute('data-html', 'true');
-            more.setAttribute('data-content',getPatterJourney(obj['pattern_journey']));
-            more.setAttribute('rel', 'popover');
-            more.textContent = "+"
-            td.appendChild(more)
-           tr.appendChild(td);
-      }
-
-      if(key=="mf_house"){
-               if (value){
-                   values = value.replace(/,/g, '').slice(0, -1).split("|")
-                   //console.log("***mutual fund****")
-                   //console.log(values)
-                   actual_len = values.length
-                   //console.log("Actual Lenght ---"+actual_len)
-                   remaining_length = actual_len - 2
-                   //console.log("remaining Lenght ---"+remaining_length)
-                   //td.appendChild(document.createTextNode(value+actual_len+remaining_length));
-                   if (actual_len <= 2){
-                        for(each in values){
-                              if (value[each] != ""){
-                                var a = document.createElement('a')
-                                a.classList.add("badge")
-                                a.classList.add("badge-pill")
-                                a.classList.add("badge-secondary")
-                                a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
-                                a.textContent = values[each]
-                                td.appendChild(a)
-                              }
-                        }
-                   }
-                   else{k=0
-                        for(each in values){
-                            if (k < 2){
-                                  if (values[each] != ""){
-                                    var a = document.createElement('a')
-                                    a.classList.add("badge")
-                                    a.classList.add("badge-pill")
-                                    a.classList.add("badge-secondary")
-                                    a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
-                                    a.textContent = values[each]
-                                    td.appendChild(a)
-                                    k = k + 1
-                                  }
-                            }
-                        }
-                        var a = document.createElement('a')
-                        a.classList.add("badge")
-                        a.classList.add("badge-pill")
-                        a.classList.add("badge-primary")
-                        a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
-                        a.setAttribute('data-container', 'body');
-                        a.setAttribute('data-toggle', 'popover');
-                        a.setAttribute('data-placement', 'bottom');
-                        a.setAttribute('data-html', 'true');
-                        a.setAttribute('data-content',values.slice(2).join('; ') );
-                        a.setAttribute('rel', 'popover');
-                        a.textContent = "+"+remaining_length
-                        td.appendChild(a)
-
-                   }
-               }
-               tr.appendChild(td);
-           }
-      /*else {
-            td.appendChild(document.createTextNode(value));
-            tr.appendChild(td);
-      } */
-    }
-  }
-}
-
-
-function getPatterJourney(data){
-    //console.log("PATTERN JOURNEY")
-    items = data.split('-->')
-    ul = document.createElement('ul')
-    ul.classList.add("list-group")
-    for (each  in items){
-        li = document.createElement('li')
-        li.classList.add("list-group-item")
-        a = document.createElement('a')
-        date = items[each].split('=')[0]
-        value = items[each].split('=')[1]
-        bold = document.createElement('b')
-        bold.appendChild(document.createTextNode(date+":"))
-        a.appendChild(bold)
-        //a.textContent = val
-        a.appendChild(document.createTextNode( value))
-        li.appendChild(a);
-        ul.append(li)
-        }
-    //console.log(ul)
-    return ul.outerHTML;
-}
-
-function createpageicon(curr_page=1,data,period=15,max_page=6){
-    //alert(typeof data)
-    //alert(curr_page)
-    //console.log("data type below")
-    //console.log(typeof data)
-    //console.log("curr_page - "+curr_page)
-    first_page = curr_page
-
-    ul_element = document.getElementById("ul_pagination");
-    var all_li = ul_element.querySelectorAll("li");
-    for (j=1;j<all_li.length;j++){
-    each_li = all_li[j];
-    each_li.remove();
-    }
-    start = curr_page;
-    end = curr_page+2;
-    if (end < max_page){
-        second_page = curr_page + 1
-        third_page = curr_page + 2
-        end = curr_page+2;
-    }
-    else{
-        first_page = max_page - 2
-        second_page = max_page - 1
-        third_page = max_page
-        end=max_page;
-        }
-    prev = start - 1
-    next = end + 1
-    li_element = document.createElement('li');
-    if (start != 1){
-        li_element.innerHTML = "<li><a class='page-link'><span aria-hidden='true'>&laquo;</span></a></li>";
-        li_element.addEventListener("click",function(){createpageicon(prev,data,period)}, false);
-        ul_element.append(li_element)
-    }
-    //for (i=start;i<=end;i++){
-        li_element = document.createElement('li');
-        li_element.innerHTML = "<li><a class='page-link' style='color:green;'><b>"+first_page+"</b></a></li>";
-        li_element.addEventListener("click",function(){createpageicon(first_page,data,period)}, false);
-        //li_element.style = "color:green;";
-        ul_element.append(li_element)
-         li_element = document.createElement('li');
-        li_element.innerHTML = "<li><a class='page-link'>"+second_page+"</a></li>";
-        li_element.addEventListener("click",function(){createpageicon(second_page,data,period)}, false);
-        ul_element.append(li_element)
-         li_element = document.createElement('li');
-        li_element.innerHTML = "<li><a class='page-link'>"+third_page+"</a></li>";
-        li_element.addEventListener("click",function(){createpageicon(third_page,data,period)}, false);
-        ul_element.append(li_element)
-    //}
-    if (end != 6 && end < max_page ){
-        li_element = document.createElement('li');
-        li_element.innerHTML = "<li><a class='page-link'><span aria-hidden='true'>&raquo;</span></a></li>";
-        li_element.addEventListener("click",function(){createpageicon(next,data,period)}, false);
-        ul_element.append(li_element)
-    }
-    //console.log(data)  createpageicon(1,{{data|safe}})
-    //console.log(typeof data)
-    change_toggle_text_color("period_"+period)
-    addTable(data,curr_page)
-  }
-
-function search(source=[],period=15) {
-    //console.log("hi")
-    var results;
-    input = document.getElementById("myInput");
-    query_symbol = input.value.toUpperCase();
-    results = $.map(source, function(entry) {
-        var match = entry.symbol.toUpperCase().indexOf(query_symbol) !== -1 || entry.patterns.toUpperCase().indexOf(query_symbol) !== -1;
-        return match ? entry : null;
-    });
-    //console.log(results)
-    createpageicon(curr_page=1,results,period,max_page=6)
-    //return results;
-}
-
-function showHide(symbol='infy') {
-    div = document.getElementById("show_hide_div");
-        if (div.style.display == 'none')
-        {
-            div.style.display = ''
-        }
-        else{
-            div.style.display = 'none'
-        }
-
-}
-
-
-function searchSymboltable(data) {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("tab_performance");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    symbol_td = tr[i].getElementsByTagName("td")[0];
-    pattern_td = tr[i].getElementsByTagName("td")[4];
-    if (symbol_td || pattern_td) {
-      symbolValue = symbol_td.textContent || symbol_td.innerText;
-      patternValue = pattern_td.textContent || pattern_td.innerText;
-      if ((symbolValue.toUpperCase().indexOf(filter) > -1) || (patternValue.toUpperCase().indexOf(filter) > -1))
-      {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
-
-
-
-var timeline_html = `
-
-<div class="timeline">
-  <div class="container left">
-    <div class="content">
-      <h5>2017</h2>
-      <p>Lorem ipsum .</p>
-    </div>
-  </div>
-  <div class="container right">
-    <div class="content">
-      <h5>2016</h2>
-      <p>Lorem ipsum .</p>
-    </div>
-  </div>
-  <div class="container left">
-    <div class="content">
-      <h5>2015</h2>
-      <p>Lorem ipsum .</p>
-    </div>
-  </div>
-
-  </div>
-</div>`
-
-</script>
-
-<!--<script type=text/javascript src="{{url_for('static', filename='js/main.js') }}"></script>-->
     <div class="col-12 col-xl-12 mb-4">
             <div class="row">
                 <div class="col-12 mb-4">
@@ -400,29 +40,23 @@ var timeline_html = `
                                 <h2 class="h5"> Performance
                                 </h2>
                                 </div>
-<!--                                <div class="col text-right">-->
-<!--                                    <a href="#" class="btn btn-sm btn-secondary">See all</a>-->
-<!--                                </div>-->
-                                <ul id="ul_pagination" class="pagination">
-                                    <!--<li class="page-item">
-                                      <a id="prev_page" class="page-link" href="/dashboard/{{current_page_no|int - 1}}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                      </a>
-                                    </li> -->
 
-                                    <!--<li class="page-item">
-                                      <a class="page-link" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                      </a>
-                                    </li> -->
+                                    Page Lenght:
+
+                                    <select class="selectpicker" style="margin-right:8px;margin-bottom:2px;border-style:groove;border-color: grey;height: 25px;" name="cars" id="cars">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    </select>
+
+
+                                <ul id="ul_pagination" class="pagination">
                                   </ul>
+
                             </div>
                         </div>
                         <div id="div_performance11" class="table-responsive">
                             <table id="tab_performance" cellpadding="0" cellspacing="0" border="0" class="table table-hover table-sm table-bordered table-condensed">
-
                                 <thead class="thead-light table-condensed">
                                 <tr>
                                     <th scope="col">Stock Name</th>
@@ -438,117 +72,36 @@ var timeline_html = `
                                 <tbody id="tab_performance_body">
                                 </tbody>
                             </table>
-
-                            <div id="show_hide_div" style="display: none">
-                                <p>Yo Man !!!!</p>
+                            <div id="show_hide_div" style="display: "  class="row">
+                                  <div class="col">
+                                     <canvas id="myChart11" style="width:100%;max-width:600px"></canvas>
+                                  </div>
+                                  <div class="col">
+                                    <canvas id="myChart21" style="width:100%;max-width:600px"></canvas>
+                                  </div>
+                                  <div class="col">
+                                      <canvas id="myChart31" style="width:100%;max-width:600px"></canvas>
+                                </div>
                             </div>
+
                         </div>
                     </div>
+                    <!-- Journey should go here -->
+
                 </div>
 
             </div>
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
         <script>
         createpageicon(1,{{data|safe}},{{period}});
         </script>
-<!--<script>-->
-<!--$(document).ready(function(){-->
-<!--    $('[data-toggle="popover"]').popover();-->
-<!--    console.log('inside toggle popover111')-->
-<!--});-->
-<!--</script>-->
-</script>
 
-
-
-<!--        <div class="col-12 col-xl-4 mb-4">-->
-<!--            <div class="col-12 px-0 mb-4">-->
-<!--                <div class="card border-light shadow-sm">-->
-<!--                    <div class="card-body d-flex flex-row align-items-center flex-0 border-bottom">-->
-<!--                        <div class="d-block">-->
-<!--                            <div class="h6 fw-normal text-gray mb-2">Total orders</div>-->
-<!--                            <h2 class="h3">452</h2>-->
-<!--                            <div class="small mt-2">                               -->
-<!--                                <span class="fas fa-angle-up text-success"></span>                                   -->
-<!--                                <span class="text-success fw-bold">18.2%</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="d-block ms-auto">-->
-<!--                            <div class="d-flex align-items-center text-right mb-2">-->
-<!--                                <span class="shape-xs rounded-circle bg-dark me-2"></span>-->
-<!--                                <span class="fw-normal small">July</span>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center text-right">-->
-<!--                                <span class="shape-xs rounded-circle bg-secondary me-2"></span>-->
-<!--                                <span class="fw-normal small">August</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="card-body p-2">-->
-<!--                        <div class="ct-chart-ranking ct-golden-section ct-series-a"></div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-12 px-0 mb-4">-->
-<!--                <div class="card border-light shadow-sm">-->
-<!--                    <div class="card-body">-->
-<!--                        <div class="d-flex align-items-center justify-content-between border-bottom border-light pb-3">-->
-<!--                            <div>-->
-<!--                                <h6 class="mb-0"><span class="icon icon-xs me-3"><span class="fas fa-globe-europe"></span></span>Global Rank</h6>-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <a href="#" class="text-primary fw-bold">#755<span class="fas fa-chart-line ms-2"></span></a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">-->
-<!--                            <div>-->
-<!--                                <h6 class="mb-0"><span class="icon icon-xs me-3"><span class="fas fa-flag-usa"></span></span>Country Rank</h6>-->
-<!--                                <div class="small card-stats">United States<span class="icon icon-xs text-success ms-2"><span class="fas fa-angle-up"></span></span></div>-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <a href="#" class="text-primary fw-bold">#32<span class="fas fa-chart-line ms-2"></span></a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="d-flex align-items-center justify-content-between pt-3">-->
-<!--                            <div>-->
-<!--                                <h6 class="mb-0"><span class="icon icon-xs me-3"><span class="fas fa-folder-open"></span></span>Category Rank</h6>-->
-<!--                                <a href="#" class="small card-stats">Travel > Accomodation</a>-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <a href="#" class="text-primary fw-bold">#16<span class="fas fa-chart-line ms-2"></span></a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-12 px-0 mb-4">-->
-<!--                <div class="card border-light shadow-sm">-->
-<!--                    <div class="card-body">-->
-<!--                        <h2 class="h5">Acquisition</h2>-->
-<!--                        <p>Tells you where your visitors originated from, such as search engines, social networks or website referrals.</p>-->
-<!--                        <div class="d-block">-->
-<!--                            <div class="d-flex align-items-center pt-3 me-5">-->
-<!--                                <div class="icon icon-shape icon-sm icon-shape-danger rounded me-3"><span class="fas fa-chart-bar"></span></div>-->
-<!--                                <div class="d-block">-->
-<!--                                    <label class="mb-0">Bounce Rate</label>-->
-<!--                                    <h4 class="mb-0">33.50%</h4>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="d-flex align-items-center pt-3">-->
-<!--                                <div class="icon icon-shape icon-sm icon-shape-quaternary rounded me-3"><span class="fas fa-chart-area"></span></div>-->
-<!--                                <div class="d-block">-->
-<!--                                    <label class="mb-0">Sessions</label>-->
-<!--                                    <h4 class="mb-0">9,567</h4>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}{% endblock javascripts %}
+            </div>
+    </div>
