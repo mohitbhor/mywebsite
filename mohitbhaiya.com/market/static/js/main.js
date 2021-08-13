@@ -103,14 +103,14 @@ function search(source=[],all_data,period=15) {
 }
 
 function showHideGraph(tr_id,symbol,all_data){
-        console.log("inside showhidegraph")
-        console.log("TR ID -> "+tr_id)
-        console.log("symbol -> "+symbol)
+//        console.log("inside showhidegraph")
+//        console.log("TR ID -> "+tr_id)
+//        console.log("symbol -> "+symbol)
         hidden_tr = document.getElementById(tr_id);
         hidden_td = document.getElementById(tr_id.replace('tr','td'));
-        console.log(hidden_tr)
-        console.log(hidden_td)
-        console.log(all_data)
+//        console.log(hidden_tr)
+//        console.log(hidden_td)
+//        console.log(all_data)
         filteredRecords = []
         for (each in all_data){
             if (all_data[each]['symbol'] == symbol ){
@@ -140,13 +140,15 @@ function showHideGraph(tr_id,symbol,all_data){
 function createPriceChart(chartId,data){
     trade_date=[]
     close_price=[]
-    close_price_mv = []
+    close_price_20_mv = []
+    close_price_7_mv =[]
     for (each in data){
         console.log("*****")
 //        console.log(data[each])
         trade_date.push(data[each]['trade_date'])
         close_price.push(data[each]['close_price'])
-        close_price_mv.push(data[each]['20_day_cp_mv_avg'])
+        close_price_20_mv.push(data[each]['20_day_cp_mv_avg'])
+        close_price_7_mv.push(data[each]['7_day_cp_mv_avg'])
     }
     var xValues = trade_date//[100,200,300,400,500,600,700,800,900,1000];
     new Chart(chartId, {
@@ -156,12 +158,18 @@ function createPriceChart(chartId,data){
         datasets: [{
           label: 'Last Close Price',
           data: close_price,
-          borderColor: "red",
+          borderColor: "orange",
           fill: false
-        }, {
+        },
+        {
+          label: 'Close Price 7 Moving Avg',
+          data: close_price_7_mv,
+          borderColor: "mediumaquamarine",
+          fill: false
+        },{
           label: 'Close Price 20 Moving Avg',
-          data: close_price_mv,
-          borderColor: "green",
+          data: close_price_20_mv,
+          borderColor: "darkgrey",
           fill: false
         }]
       },
@@ -174,11 +182,13 @@ function createPriceChart(chartId,data){
 function createVolumeChart(chartId,data){
     trade_date=[]
     daily_vol=[]
-    daily_vol_mv = []
+    daily_vol_20_mv = []
+    daily_vol_7_mv = []
     for (each in data){
         trade_date.push(data[each]['trade_date'])
         daily_vol.push(data[each]['trade_quantity_thousand'])
-        daily_vol_mv.push(data[each]['20_day_vol_mv_avg'])
+        daily_vol_20_mv.push(data[each]['20_day_vol_mv_avg'])
+        daily_vol_7_mv.push(data[each]['7_day_vol_mv_avg'])
     }
     var xValues = trade_date//[100,200,300,400,500,600,700,800,900,1000];
     new Chart(chartId, {
@@ -188,12 +198,17 @@ function createVolumeChart(chartId,data){
         datasets: [{
           label: 'Volume Daily',
           data: daily_vol,
-          borderColor: "red",
+          borderColor: "orange",
           fill: false
         }, {
+          label: 'Volume 7 days Moving Avg',
+          data: daily_vol_7_mv,
+          borderColor: "mediumaquamarine",
+          fill: false
+        },{
           label: 'Volume 20 days Moving Avg',
-          data: daily_vol_mv,
-          borderColor: "green",
+          data: daily_vol_20_mv,
+          borderColor: "darkgrey",
           fill: false
         }]
       },
@@ -206,11 +221,13 @@ function createVolumeChart(chartId,data){
 function createDeliveryChart(chartId,data){
     trade_date=[]
     daily_del=[]
-    daily_del_mv = []
+    daily_del_20_mv = []
+    daily_del_7_mv = []
     for (each in data){
         trade_date.push(data[each]['trade_date'])
         daily_del.push(data[each]['delivery_percentage'])
-        daily_del_mv.push(data[each]['20_day_del_mv_avg'])
+        daily_del_20_mv.push(data[each]['20_day_del_mv_avg'])
+        daily_del_7_mv.push(data[each]['7_day_del_mv_avg'])
     }
     var xValues = trade_date//[100,200,300,400,500,600,700,800,900,1000];
     new Chart(chartId, {
@@ -220,12 +237,17 @@ function createDeliveryChart(chartId,data){
         datasets: [{
          label: 'Delivery %',
           data: daily_del,
-          borderColor: "red",
+          borderColor: "orange",
           fill: false
         }, {
+          label: 'Delivery % Moving Avg.(7 day)',
+          data: daily_del_7_mv,
+          borderColor: "mediumaquamarine",
+          fill: false
+        },{
           label: 'Delivery % Moving Avg.(20 day)',
-          data: daily_del_mv,
-          borderColor: "green",
+          data: daily_del_20_mv,
+          borderColor: "darkgrey",
           fill: false
         }]
       },
@@ -341,7 +363,7 @@ function addTable(data,current_page,all_data) {
                 play = document.createElement('span')
                 trId = "showhidetr"+i.toString()
                 console.log('the tr before calling on click is ->'+trId)
-                allDataString = JSON.stringify(all_data)
+                //allDataString = JSON.stringify(all_data)
                 console.log(typeof allDataString)
                 var play = htmlToElement('<a><i class="fa fa-line-chart secondary"  style="margin-left:4px;" tittle="click here for detail"></i></a>')
 
@@ -482,10 +504,10 @@ function addTable(data,current_page,all_data) {
 }
 
 function makeItHappenDelegate(a, b,c) {
-  console.log("just after onclick ")
-  console.log(a)
-  console.log(b)
-  console.log(c)
+//  console.log("just after onclick ")
+//  console.log(a)
+//  console.log(b)
+//  console.log(c)
   return function(){
       showHideGraph(a, b, c)
   }
