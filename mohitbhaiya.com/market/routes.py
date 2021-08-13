@@ -61,11 +61,11 @@ def dashboard_page():
     if request.method == "GET":
         cur = get_db().cursor(dictionary=True)
         #cur.execute("SET SESSION MAX_EXECUTION_TIME=10000")
-        query="select * from trading.website_data_%s order by avg_rise desc ,today_rise_percentage desc"%str(period)
-        cur.execute(query)
-        data_len = cur.fetchall()[0]
+        # query="select * from mbdc_mart.website_data_%s order by avg_rise desc ,today_rise_percentage desc"%str(period)
+        # cur.execute(query)
+        # data_len = cur.fetchall()[0]
 
-        query="select * from trading.website_data_%s order by avg_rise desc ,today_rise_percentage desc"%str(period)
+        query="select * from mbdc_mart.website_data_%s order by avg_rise desc ,today_rise_percentage desc"%str(period)
         print("query",query)
         cur.execute(query)
         data = cur.fetchall()
@@ -77,7 +77,7 @@ def dashboard_page():
         all_data = cur.fetchall()
         all_data = json.dumps(all_data,default=myconverter)
         print (all_data)
-        return render_template('dashboard.html',data=json.dumps(data),all_data=all_data, current_page_no=1,max_lenght=data_len,period=period)
+        return render_template('dashboard.html',data=json.dumps(data),all_data=all_data, current_page_no=1,max_lenght=1000,period=period)
 
 
 @app.route('/market', methods=['GET', 'POST'])

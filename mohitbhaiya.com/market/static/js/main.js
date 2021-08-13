@@ -103,37 +103,42 @@ function search(source=[],all_data,period=15) {
 }
 
 function showHideGraph(tr_id,symbol,all_data){
-//        console.log("inside showhidegraph")
-//        console.log("TR ID -> "+tr_id)
-//        console.log("symbol -> "+symbol)
         hidden_tr = document.getElementById(tr_id);
-        hidden_td = document.getElementById(tr_id.replace('tr','td'));
-//        console.log(hidden_tr)
-//        console.log(hidden_td)
-//        console.log(all_data)
-        filteredRecords = []
-        for (each in all_data){
-            if (all_data[each]['symbol'] == symbol ){
-                 record = all_data[each]
-                 console.log("showhidegraph")
-                 console.log(record)
-                 filteredRecords.push(record)
-                 }
-        }
+
+        div = document.getElementById("rowdiv_"+symbol);
         if (hidden_tr.style.display == 'none'){
-            hidden_tr.style.display = ''
-            div = createDiv(symbol)
-            hidden_td.append(div)
-            console.log(hidden_tr)
-            priceChartId= "canvas1_"+symbol
-            createPriceChart(priceChartId,filteredRecords)
-            volChartId= "canvas2_"+symbol
-            createVolumeChart(volChartId,filteredRecords)
-            delChartId= "canvas3_"+symbol
-            createDeliveryChart(delChartId,filteredRecords)
+                    hidden_tr.scrollIntoView(true)
+                    hidden_td = document.getElementById(tr_id.replace('tr','td'));
+                    filteredRecords = []
+                    for (each in all_data){
+                        if (all_data[each]['symbol'] == symbol ){
+                             record = all_data[each]
+                             console.log("showhidegraph")
+                             console.log(record)
+                             filteredRecords.push(record)
+                             }
+                    }
+
+                    hidden_tr.style.display = ''
+                    if (typeof(div) == 'undefined' || div == null){
+                        console.log("****creating new div")
+                        div = createDiv(symbol)
+                        hidden_td.append(div)
+                        console.log(hidden_tr)
+                        priceChartId= "canvas1_"+symbol
+                        createPriceChart(priceChartId,filteredRecords)
+                        volChartId= "canvas2_"+symbol
+                        createVolumeChart(volChartId,filteredRecords)
+                        delChartId= "canvas3_"+symbol
+                        createDeliveryChart(delChartId,filteredRecords)
+                    }
+                    else{
+                        console.log("**** Div already exists *****")
+                    }
         }
         else{
             hidden_tr.style.display = 'none'
+
         }
 }
 
@@ -142,6 +147,8 @@ function createPriceChart(chartId,data){
     close_price=[]
     close_price_20_mv = []
     close_price_7_mv =[]
+    rsi =[]
+    patterns = []
     for (each in data){
         console.log("*****")
 //        console.log(data[each])
@@ -149,6 +156,8 @@ function createPriceChart(chartId,data){
         close_price.push(data[each]['close_price'])
         close_price_20_mv.push(data[each]['20_day_cp_mv_avg'])
         close_price_7_mv.push(data[each]['7_day_cp_mv_avg'])
+        rsi.push(data[each]['rsi'])
+        patterns.push(data[each]['patterns'])
     }
     var xValues = trade_date//[100,200,300,400,500,600,700,800,900,1000];
     new Chart(chartId, {
@@ -156,28 +165,50 @@ function createPriceChart(chartId,data){
       data: {
         labels: xValues,
         datasets: [{
-          label: 'Last Close Price',
+          label: 'Close Price',
           data: close_price,
           borderColor: "orange",
           fill: false
         },
         {
-          label: 'Close Price 7 Moving Avg',
+          label: '7 days Avg',
           data: close_price_7_mv,
           borderColor: "mediumaquamarine",
           fill: false
         },{
-          label: 'Close Price 20 Moving Avg',
+          label: '20 days Avg',
           data: close_price_20_mv,
           borderColor: "darkgrey",
           fill: false
         }]
       },
       options: {
-        legend: {display: true}
+            legend: {
+                display: true,
+                labels: {
+                    boxWidth: 10,
+                    boxHeight:10
+                }
+            },
+             title: {
+                display: true,
+                text: 'Closing Price & Moving Averages'
+              },
+             tooltips: {
+                 callbacks: {
+                    label: function(tooltipItem, data) {
+                            var i = tooltipItem.index;
+                            console.log("****TOOLTIP-->"+i)
+                            label = ["CP: "+close_price[i],"RSI: "+parseFloat(rsi[i]).toFixed(2),"PATTERN: "+patterns[i].trim()]
+                            return label;
+                 }
+             }
+            }
       }
     });
 }
+
+
 
 function createVolumeChart(chartId,data){
     trade_date=[]
@@ -196,24 +227,35 @@ function createVolumeChart(chartId,data){
       data: {
         labels: xValues,
         datasets: [{
-          label: 'Volume Daily',
+          label: 'Daily Volume',
           data: daily_vol,
           borderColor: "orange",
           fill: false
         }, {
-          label: 'Volume 7 days Moving Avg',
+          label: '7 days Avg',
           data: daily_vol_7_mv,
           borderColor: "mediumaquamarine",
           fill: false
         },{
-          label: 'Volume 20 days Moving Avg',
+          label: '20 days Avg',
           data: daily_vol_20_mv,
           borderColor: "darkgrey",
           fill: false
         }]
       },
       options: {
-        legend: {display: true}
+            legend: {
+                display: true,
+                labels: {
+                    boxWidth: 10,
+                    boxHeight:10
+                }
+            },
+             title: {
+                display: true,
+                text: 'Last Volume & Moving Averages'
+              }
+
       }
     });
 }
@@ -235,24 +277,35 @@ function createDeliveryChart(chartId,data){
       data: {
         labels: xValues,
         datasets: [{
-         label: 'Delivery %',
+         label: 'Daily Delivery %',
           data: daily_del,
           borderColor: "orange",
           fill: false
         }, {
-          label: 'Delivery % Moving Avg.(7 day)',
+          label: '7 days Avg',
           data: daily_del_7_mv,
           borderColor: "mediumaquamarine",
           fill: false
         },{
-          label: 'Delivery % Moving Avg.(20 day)',
+          label: '20 days Avg',
           data: daily_del_20_mv,
           borderColor: "darkgrey",
           fill: false
         }]
       },
       options: {
-        legend: {display: true}
+            legend: {
+                display: true,
+                labels: {
+                    boxWidth: 10,
+                    boxHeight:10
+                }
+            },
+             title: {
+                display: true,
+                text: 'Delivery % & Moving Averages'
+              }
+
       }
     });
 }
@@ -275,14 +328,14 @@ function createDiv(symbol){
     colDiv2.classList.add('col')
     canvas2 = document.createElement('canvas')
     canvas2.setAttribute('id', 'canvas2_'+symbol);
-    canvas2.style = "width:100%;max-width:450px;margin-left:10px"
+    canvas2.style = "width:100%;max-width:450px;margin-left:5px"
     colDiv2.appendChild(canvas2)
 
     colDiv3 = document.createElement('div')
     colDiv3.classList.add('col')
     canvas3 = document.createElement('canvas')
     canvas3.setAttribute('id', 'canvas3_'+symbol);
-    canvas3.style = "width:100%;max-width:450px;margin-left:10px"
+    canvas3.style = "width:100%;max-width:450px;margin-left:5px"
     colDiv3.appendChild(canvas3)
 
     rowDiv.appendChild(colDiv1)
@@ -338,6 +391,7 @@ function addTable(data,current_page,all_data) {
         var tr = document.createElement('TR');
         tr.setAttribute('id',i);
         tableBody.appendChild(tr);
+        console.log(obj)
         for (var key in obj) {
               var td = document.createElement('TD');
               var value = obj[key];
@@ -359,22 +413,26 @@ function addTable(data,current_page,all_data) {
                     tr.appendChild(td);
               }
               if (key == "symbol") {
-                td.appendChild(document.createTextNode(value));
-                play = document.createElement('span')
-                trId = "showhidetr"+i.toString()
-                console.log('the tr before calling on click is ->'+trId)
-                //allDataString = JSON.stringify(all_data)
-                console.log(typeof allDataString)
-                var play = htmlToElement('<a><i class="fa fa-line-chart secondary"  style="margin-left:4px;" tittle="click here for detail"></i></a>')
-
-                play.addEventListener("click", makeItHappenDelegate(trId,obj['symbol'],all_data))
-                td.appendChild(play);
-                tr.appendChild(td);
+                    td.appendChild(document.createTextNode(value));
+//                    var p = document.createElement('p');
+//                    p.classList.add("text-info")
+//                    console.log("key['close_price']"+obj['obj'])
+                    p = htmlToElement("<p class='text-info'><small><strong>CP: </strong>"+obj['close_price'] +"</small></p>")
+                    td.appendChild(p)
+                    tr.appendChild(td);
               }
               if(key == "avg_rise"){
-                   value = parseFloat(value).toFixed(3)
-                   td.appendChild(document.createTextNode(value));
-                   tr.appendChild(td);
+                    value = parseFloat(value).toFixed(3)
+                    td.appendChild(document.createTextNode(value));
+                    play = document.createElement('span')
+                    trId = "showhidetr"+i.toString()
+                    console.log('the tr before calling on click is ->'+trId)
+                    console.log(typeof allDataString)
+                    var play = htmlToElement('<a href="#'+i.toString()+'" tittle="click here for detail"><i class="fa fa-line-chart secondary"  style="margin-left:4px;" tittle="click here for detail"></i></a>')
+
+                    play.addEventListener("click", makeItHappenDelegate(trId,obj['symbol'],all_data))
+                    td.appendChild(play);
+                    tr.appendChild(td);
               }
               if (key == "today_rise_percentage" || key == "vol_rise_mv" || key == "del_rise_mv"){
                   var span = document.createElement('span');
@@ -431,13 +489,8 @@ function addTable(data,current_page,all_data) {
               if(key=="mf_house"){
                        if (value){
                            values = value.replace(/,/g, '').slice(0, -1).split("|")
-                           //console.log("***mutual fund****")
-                           //console.log(values)
                            actual_len = values.length
-                           //console.log("Actual Lenght ---"+actual_len)
                            remaining_length = actual_len - 2
-                           //console.log("remaining Lenght ---"+remaining_length)
-                           //td.appendChild(document.createTextNode(value+actual_len+remaining_length));
                            if (actual_len <= 2){
                                 for(each in values){
                                       if (value[each] != ""){
@@ -491,23 +544,13 @@ function addTable(data,current_page,all_data) {
         //hidden_td.textContent = "show_hide_td_"+i
         hidden_td.setAttribute('id',"showhidetd"+i);
         hidden_tr.setAttribute('id',"showhidetr"+i);
-        //var hidden_para = document.createElement('p');
-        //hidden_para.style.display = "None";
         hidden_tr.style.display = "none"
-        //hidden_para.textContent = "YO MAN "
-//        var divString = '<div id="show_hide_div" style="display: "  class="row"><div class="col"><canvas id="myChart'+i.toString()+'" style="width:100%;max-width:400px"></canvas></div><div class="col"><canvas id="myChart'+(i+1).toString()+'" style="width:100%;max-width:500px"></canvas></div></div>'
-//        divElement = htmlToElement(divString)
-//        hidden_td.appendChild(divElement);
         hidden_tr.appendChild(hidden_td);
         tableBody.appendChild(hidden_tr);
       }
 }
 
 function makeItHappenDelegate(a, b,c) {
-//  console.log("just after onclick ")
-//  console.log(a)
-//  console.log(b)
-//  console.log(c)
   return function(){
       showHideGraph(a, b, c)
   }
