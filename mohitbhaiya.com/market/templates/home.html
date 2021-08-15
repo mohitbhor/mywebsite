@@ -1,15 +1,46 @@
 {% extends 'base.html' %}
 {% block title %}
-    Stock Watch
+    MohitBhaiya.com
 {% endblock %}
 {% block content %}
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark" style="color:white">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 font-weight-normal">Jim Shaped Coding Market</h1>
-            <p class="lead font-weight-normal">Start purchasing products by clicking the link below</p>
-            <a class="btn btn-primary" href="{{ url_for('market_page') }}">Get Started</a>
-        </div>
-        <div class="product-device box-shadow d-none d-md-block"></div>
-        <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
-    </div>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<header class="w3-container w3-blue w3-center"> <!--style="padding:160px 20px" -->
+
+    <h2 class="display-3">Trading Decisions Made </br>Easy for You</h2>
+    <p class="w3-large">Enabling Retail Traders With Technical Analysis, Patterns & Trends </p>
+
+    <form>
+      <div class="form-row justify-content-center">
+          <div class="form-group col-md-3">
+          <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+          </div>
+
+          <div class="form-group col-md-3">
+              <input type="number" class="form-control" id="inputPassword4" placeholder="Phone Number">
+          </div>
+
+      </div>
+        <button type="button" class="btn btn-success btn-lg ">Get Started</button>
+    </form>
+
+</header>
+<!--    <div class="bg-primary" style="color:white;height: 100vh;width: 100vw;">-->
+<!--        <div class="col-md-7 p-lg-5 mx-auto my-5">-->
+<!--            <h1 class="display-4 font-weight-normal">Trading Made Easy for You.</h1>-->
+<!--            <p class="lead font-weight-normal">Start purchasing products by clicking the link below</p>-->
+<!--            <a class="btn btn-primary" href="{{ url_for('market_page') }}">Get Started</a>-->
+<!--        </div>-->
+<!--        <div class="product-device box-shadow d-none d-md-block">xxxxxxxxxx</div>-->
+<!--        <div class="product-device product-device-2 box-shadow d-none d-md-block">ghhjkkigf</div>-->
+<!--    </div>-->
+<style>
+body {
+      background-color: #0000FF;
+      }
+</style>
 {% endblock %}

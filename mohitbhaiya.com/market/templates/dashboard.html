@@ -6,7 +6,6 @@ Dashboard
 
 <script type=text/javascript src="{{url_for('static', filename='js/main.js') }}"></script>
 
-
     <div class="col-12 col-xl-12 mb-4">
             <div class="row">
                 <div class="col-12 mb-4">
@@ -26,19 +25,18 @@ Dashboard
                 <div class="col-12 mb-4">
                     <div class="card border-light shadow-sm">
                         <div class="card-header">
-                            <div class="row align-items-center">
-                                <div class="col-10">
-
-                                        <h2 class="h5">Best Performer
+                            <div class="row ">
+                                <div class="col-9">
+                                    <h2 class="h5" style="display: inline-block">Best Performer
                                             <a id="info" data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>This table list the stocks in descending order of average growth per day over selected period of time</small>">
                                                                 <span><i class="fas fa-info-circle" style="color: #ff9900"></i></span>
                                             </a>
-                                        </h2>
-                                        <div id="div_timeframe_filter" class="btn-group btn-group-toggle" data-toggle="buttons">
-                                           <label class="btn btn-light h-75   active"> <!-- onclick = "change_toggle_text_color('last1monthlink')" -->
+                                    </h2>
+                                        <div id="div_timeframe_filter" class="btn-group btn-group-toggle" style="display: inline-block" data-toggle="buttons">
+                                           <label class="btn btn-light h-75   "> <!-- onclick = "change_toggle_text_color('last1monthlink')" -->
                                                 <a href="{{ url_for('dashboard_page',period=30) }}"><input type="radio" name="options" id="option1" autocomplete="off" > <p id="period_30" style="color:blue;" checked> <small>Last 1 month</small></p></a>
                                             </label>
-                                            <label class="btn btn-light h-75 ">
+                                            <label class="btn btn-light h-75 active">
                                                 <a href="{{ url_for('dashboard_page',period=15) }}"><input type="radio" name="options" id="option2" autocomplete="off"> <p id="period_15" style="color:blue;" ><small>Last 15 days</small></p></a>
                                             </label>
                                             <label class="btn btn-light h-75">
@@ -46,14 +44,8 @@ Dashboard
                                             </label>
                                         </div>
                                 </div>
-<!--                                    Page Lenght:-->
-<!--                                    <select class="selectpicker" style="margin-right:8px;margin-bottom:2px;border-style:groove;border-color: grey;height: 25px;" name="cars" id="cars">-->
-<!--                                    <option value="5">5</option>-->
-<!--                                    <option value="10">10</option>-->
-<!--                                    <option value="15">15</option>-->
-<!--                                    </select>-->
-                                <div class = "col-2 float-right">
-                                    <ul id="ul_pagination" class="pagination">
+                                <div class = "col-3">
+                                    <ul id="ul_pagination" class="pagination  pagination-sm float-right">
                                     </ul>
                                 </div>
                             </div>
@@ -68,9 +60,9 @@ Dashboard
    <span><i class="fas fa-info-circle" style="color: #ff9900"></i></span></a></th>
                                     <th scope="col">Last % Change <a  data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>Rise/Fall % of price in last trading session.</small>">
    <span><i class="fas fa-info-circle" style="color: #ff9900"></i></span></a></th>
-                                    <th scope="col">Volume % change<sub> (20 days MAV)</sub><a data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>Rise/Fall % of today volume with respect to 20 days moving average of volume</small>">
+                                    <th scope="col">Volume % change<div style="display: inline-block"><small> (20 days MAV)</small></div><a style="display: inline-block" data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>Rise/Fall % of today volume with respect to 20 days moving average of volume</small>">
    <span><i class="fas fa-info-circle" style="color: #ff9900"></i></span></a></th>
-                                    <th scope="col">Delivery % change<sub> (20 days MAV)</sub><a data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>Rise/Fall of delivery percentage with respect tp 20 days moving average of delivery percentage</small>">
+                                    <th scope="col">Delivery % change<div style="display: inline-block"><small> (20 days MAV)</small></div><a style="display: inline-block" data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>Rise/Fall of delivery percentage with respect to 20 days moving average of delivery percentage</small>">
    <span><i class="fas fa-info-circle" style="color: #ff9900"></i></span></a></th>
                                     <th scope="col">Pattern</th>
                                     <th scope="col">Mutual Fund Houses</th>

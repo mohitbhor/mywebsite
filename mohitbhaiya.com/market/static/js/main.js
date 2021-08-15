@@ -5,6 +5,7 @@ function change_toggle_text_color(p_id){   //window.location.href = '/dashboard?
     for(var i = 0; i < searchEles.length; i++) {
         if(searchEles[i].id == p_id) {
             searchEles[i].style = "color:green;";
+            searchEles[i].style.fontWeight = "bolder";
             }
         else {
             searchEles[i].style = "color:blue;";
