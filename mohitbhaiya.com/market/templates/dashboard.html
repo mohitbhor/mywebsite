@@ -16,17 +16,7 @@ Dashboard
                                 <div class="col">
                                     <input class='h-75' type='text' id='myInput' background-image='/static/searchicon.png'  onkeyup='search({{data|safe}},{{all_data|safe}},{{period}})' placeholder='Search for Symbol or Patterns..' title='Type in a symbol'>
                                     </input>
-                                <div id="div_timeframe_filter" class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                                   <label class="btn btn-light h-75   active"> <!-- onclick = "change_toggle_text_color('last1monthlink')" -->
-                                        <a href="{{ url_for('dashboard_page',period=30) }}"><input type="radio" name="options" id="option1" autocomplete="off" > <p id="period_30" style="color:blue;" checked> Last 1 month</p></a>
-                                    </label>
-                                    <label class="btn btn-light h-75 ">
-                                        <a href="{{ url_for('dashboard_page',period=15) }}"><input type="radio" name="options" id="option2" autocomplete="off"> <p id="period_15" style="color:blue;" >Last 15 days</p></a>
-                                    </label>
-                                    <label class="btn btn-light h-75">
-                                        <a href="{{ url_for('dashboard_page',period=7) }}"><input type="radio" name="options" id="option3" autocomplete="off" > <p id="period_7" style="color:blue;" >Last 7 days</p></a>
-                                    </label>
-                                </div>
+
                                 </div>
                             </div></div></div><div>
     </div>
@@ -37,35 +27,51 @@ Dashboard
                     <div class="card border-light shadow-sm">
                         <div class="card-header">
                             <div class="row align-items-center">
-                                <div class="col">
-                                <h2 class="h5"> Performance
-                                </h2>
+                                <div class="col-10">
+
+                                        <h2 class="h5">Best Performer
+                                            <a id="info" data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>This table list the stocks in descending order of average growth per day over selected period of time</small>">
+                                                                <span><i class="fas fa-info-circle" style="color: #ff9900"></i></span>
+                                            </a>
+                                        </h2>
+                                        <div id="div_timeframe_filter" class="btn-group btn-group-toggle" data-toggle="buttons">
+                                           <label class="btn btn-light h-75   active"> <!-- onclick = "change_toggle_text_color('last1monthlink')" -->
+                                                <a href="{{ url_for('dashboard_page',period=30) }}"><input type="radio" name="options" id="option1" autocomplete="off" > <p id="period_30" style="color:blue;" checked> <small>Last 1 month</small></p></a>
+                                            </label>
+                                            <label class="btn btn-light h-75 ">
+                                                <a href="{{ url_for('dashboard_page',period=15) }}"><input type="radio" name="options" id="option2" autocomplete="off"> <p id="period_15" style="color:blue;" ><small>Last 15 days</small></p></a>
+                                            </label>
+                                            <label class="btn btn-light h-75">
+                                                <a href="{{ url_for('dashboard_page',period=7) }}"><input type="radio" name="options" id="option3" autocomplete="off" > <p id="period_7" style="color:blue;" ><small>Last 7 days</small></p></a>
+                                            </label>
+                                        </div>
                                 </div>
-
-                                    Page Lenght:
-
-                                    <select class="selectpicker" style="margin-right:8px;margin-bottom:2px;border-style:groove;border-color: grey;height: 25px;" name="cars" id="cars">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    </select>
-
-
-                                <ul id="ul_pagination" class="pagination">
-                                  </ul>
-
+<!--                                    Page Lenght:-->
+<!--                                    <select class="selectpicker" style="margin-right:8px;margin-bottom:2px;border-style:groove;border-color: grey;height: 25px;" name="cars" id="cars">-->
+<!--                                    <option value="5">5</option>-->
+<!--                                    <option value="10">10</option>-->
+<!--                                    <option value="15">15</option>-->
+<!--                                    </select>-->
+                                <div class = "col-2 float-right">
+                                    <ul id="ul_pagination" class="pagination">
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div id="div_performance11" class="table-responsive">
                             <table id="tab_performance" cellpadding="0" cellspacing="0" border="0" class="table table-hover table-sm table-bordered table-condensed">
                                 <thead class="thead-light table-condensed">
                                 <tr>
-                                    <th scope="col">Stock Name</th>
+                                    <th scope="col">Stock Name </th>
                                     <th scope="col">Symbols</th>
-                                    <th scope="col">Avg. % Change per day </th>
-                                    <th scope="col">Last % Change </th>
-                                    <th scope="col">Volume % change<small> (20 days MAV)</small></th>
-                                    <th scope="col">Delivery % change<small> (20 days MAV)</small></th>
+                                    <th scope="col">Avg. % Change per day <a  data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>Average change per day over selected time period, click on blue graph icon to watch journey</small>">
+   <span><i class="fas fa-info-circle" style="color: #ff9900"></i></span></a></th>
+                                    <th scope="col">Last % Change <a  data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>Rise/Fall % of price in last trading session.</small>">
+   <span><i class="fas fa-info-circle" style="color: #ff9900"></i></span></a></th>
+                                    <th scope="col">Volume % change<sub> (20 days MAV)</sub><a data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>Rise/Fall % of today volume with respect to 20 days moving average of volume</small>">
+   <span><i class="fas fa-info-circle" style="color: #ff9900"></i></span></a></th>
+                                    <th scope="col">Delivery % change<sub> (20 days MAV)</sub><a data-toggle="tooltip"  data-html="true" data-placement="top" title="<small>Rise/Fall of delivery percentage with respect tp 20 days moving average of delivery percentage</small>">
+   <span><i class="fas fa-info-circle" style="color: #ff9900"></i></span></a></th>
                                     <th scope="col">Pattern</th>
                                     <th scope="col">Mutual Fund Houses</th>
                                 </tr>
@@ -84,6 +90,10 @@ Dashboard
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
         <script>
         createpageicon(1,{{data|safe}},{{all_data|safe}},{{period}});
+        $(function () {
+                 $('[data-toggle="tooltip"]').tooltip()
+                })
+
         </script>
 <script type=text/javascript src="{{url_for('static', filename='js/viz.js') }}"></script>
     </div>

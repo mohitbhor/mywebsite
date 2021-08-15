@@ -101,7 +101,6 @@ function search(source=[],all_data,period=15) {
     createpageicon(curr_page=1,results,all_data,period,max_page=6)
     //return results;
 }
-
 function showHideGraph(tr_id,symbol,all_data){
         hidden_tr = document.getElementById(tr_id);
 
@@ -141,14 +140,16 @@ function showHideGraph(tr_id,symbol,all_data){
 
         }
 }
-
 function createPriceChart(chartId,data){
     trade_date=[]
+    ctx = chartId
     close_price=[]
     close_price_20_mv = []
     close_price_7_mv =[]
     rsi =[]
     patterns = []
+
+    const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
     for (each in data){
         console.log("*****")
 //        console.log(data[each])
@@ -160,6 +161,7 @@ function createPriceChart(chartId,data){
         patterns.push(data[each]['patterns'])
     }
     var xValues = trade_date//[100,200,300,400,500,600,700,800,900,1000];
+    //var delayBetweenPoints = 10000
     new Chart(chartId, {
       type: "line",
       data: {
@@ -175,7 +177,8 @@ function createPriceChart(chartId,data){
           data: close_price_7_mv,
           borderColor: "mediumaquamarine",
           fill: false
-        },{
+        },
+        {
           label: '20 days Avg',
           data: close_price_20_mv,
           borderColor: "darkgrey",
@@ -205,11 +208,9 @@ function createPriceChart(chartId,data){
              }
             }
       }
-    });
+    }
+   )
 }
-
-
-
 function createVolumeChart(chartId,data){
     trade_date=[]
     daily_vol=[]
@@ -259,7 +260,6 @@ function createVolumeChart(chartId,data){
       }
     });
 }
-
 function createDeliveryChart(chartId,data){
     trade_date=[]
     daily_del=[]
@@ -309,7 +309,6 @@ function createDeliveryChart(chartId,data){
       }
     });
 }
-
 function createDiv(symbol){
     rowDiv = document.createElement('div')
     rowDiv.classList.add('row')
@@ -344,7 +343,6 @@ function createDiv(symbol){
 
     return rowDiv
 }
-
 function searchSymboltable(data) {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
@@ -366,11 +364,12 @@ function searchSymboltable(data) {
     }
   }
 }
-
 function addTable(data,current_page,all_data) {
 
     $(document).ready(function(){
     $('[data-toggle="popover"]').popover();})
+
+
     var tableBody = document.getElementById("tab_performance_body");
     // remove older TR first
     var all_tr = tableBody.querySelectorAll("TR");
@@ -525,10 +524,11 @@ function addTable(data,current_page,all_data) {
                                 a.classList.add("badge-primary")
                                 a.style = "font-size:9px;margin-right:4px;margin-bottom: 4px;"
                                 a.setAttribute('data-container', 'body');
-                                a.setAttribute('data-toggle', 'popover');
+                                a.setAttribute('data-toggle', 'tooltip');
                                 a.setAttribute('data-placement', 'bottom');
                                 a.setAttribute('data-html', 'true');
                                 a.setAttribute('data-content',values.slice(2).join('; ') );
+                                a.setAttribute('title',values.slice(2).join('; ') );
                                 a.setAttribute('rel', 'popover');
                                 a.textContent = "+"+remaining_length
                                 td.appendChild(a)
@@ -549,7 +549,6 @@ function addTable(data,current_page,all_data) {
         tableBody.appendChild(hidden_tr);
       }
 }
-
 function makeItHappenDelegate(a, b,c) {
   return function(){
       showHideGraph(a, b, c)
