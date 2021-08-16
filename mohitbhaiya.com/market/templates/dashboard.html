@@ -33,6 +33,9 @@ Dashboard
                                             </a>
                                     </h2>
                                         <div id="div_timeframe_filter" class="btn-group btn-group-toggle" style="display: inline-block" data-toggle="buttons">
+                                            <label class="btn btn-light h-75   "> <!-- onclick = "change_toggle_text_color('last1monthlink')" -->
+                                                <a href="{{ url_for('dashboard_page',period=60) }}"><input type="radio" name="options" id="option0" autocomplete="off" > <p id="period_60" style="color:blue;" checked> <small>Last 2 months</small></p></a>
+                                            </label>
                                            <label class="btn btn-light h-75   "> <!-- onclick = "change_toggle_text_color('last1monthlink')" -->
                                                 <a href="{{ url_for('dashboard_page',period=30) }}"><input type="radio" name="options" id="option1" autocomplete="off" > <p id="period_30" style="color:blue;" checked> <small>Last 1 month</small></p></a>
                                             </label>
@@ -88,6 +91,13 @@ Dashboard
 
         </script>
 <script type=text/javascript src="{{url_for('static', filename='js/viz.js') }}"></script>
+        <style>
+
+    body {
+      background-color: #C2E9FF;
+      color: Black
+      }
+      </style>
     </div>
 
 {% endblock content %}
