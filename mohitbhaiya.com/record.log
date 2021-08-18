@@ -1,0 +1,302 @@
+2021-08-18 23:52:17,367 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-18 23:52:17,371 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-18 23:52:17,894 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-18 23:52:28,942 INFO market Thread-2 : Landed:: ip:127.0.0.1 referrer:http://localhost:5555/dashboard?period=30
+2021-08-18 23:52:28,961 INFO werkzeug Thread-2 : 127.0.0.1 - - [18/Aug/2021 23:52:28] "GET /home HTTP/1.1" 200 -
+2021-08-18 23:52:29,086 INFO werkzeug Thread-3 : 127.0.0.1 - - [18/Aug/2021 23:52:29] "[33mGET /css/datatables/datatables.css HTTP/1.1[0m" 404 -
+2021-08-18 23:52:29,140 INFO werkzeug Thread-4 : 127.0.0.1 - - [18/Aug/2021 23:52:29] "[33mGET /css/datatables/datatables.css HTTP/1.1[0m" 404 -
+2021-08-18 23:52:37,793 INFO market Thread-5 : SignedGuestSuccess:: ip:127.0.0.1 referrer:http://localhost:5555/home guest_email:mnp@gmail.com guest_phone:8987765433
+2021-08-18 23:52:37,795 INFO werkzeug Thread-5 : 127.0.0.1 - - [18/Aug/2021 23:52:37] "[32mPOST /home HTTP/1.1[0m" 302 -
+2021-08-18 23:52:38,801 DEBUG mysql.connector.connection Thread-6 : new_auth_plugin: mysql_native_password
+2021-08-18 23:52:45,405 INFO werkzeug Thread-6 : 127.0.0.1 - - [18/Aug/2021 23:52:45] "GET /dashboard HTTP/1.1" 200 -
+2021-08-18 23:52:45,447 INFO werkzeug Thread-7 : 127.0.0.1 - - [18/Aug/2021 23:52:45] "[33mGET /css/datatables/datatables.css HTTP/1.1[0m" 404 -
+2021-08-18 23:52:45,836 INFO werkzeug Thread-8 : 127.0.0.1 - - [18/Aug/2021 23:52:45] "[33mGET /css/datatables/datatables.css HTTP/1.1[0m" 404 -
+2021-08-18 23:53:56,670 DEBUG mysql.connector.connection Thread-9 : new_auth_plugin: mysql_native_password
+2021-08-18 23:54:01,349 INFO werkzeug Thread-9 : 127.0.0.1 - - [18/Aug/2021 23:54:01] "GET /dashboard?period=7 HTTP/1.1" 200 -
+2021-08-18 23:54:01,394 INFO werkzeug Thread-10 : 127.0.0.1 - - [18/Aug/2021 23:54:01] "[33mGET /css/datatables/datatables.css HTTP/1.1[0m" 404 -
+2021-08-18 23:54:01,431 INFO werkzeug Thread-11 : 127.0.0.1 - - [18/Aug/2021 23:54:01] "[33mGET /css/datatables/datatables.css HTTP/1.1[0m" 404 -
+2021-08-18 23:55:02,837 DEBUG mysql.connector.connection Thread-12 : new_auth_plugin: mysql_native_password
+2021-08-18 23:55:09,468 INFO werkzeug Thread-12 : 127.0.0.1 - - [18/Aug/2021 23:55:09] "GET /dashboard?period=15 HTTP/1.1" 200 -
+2021-08-18 23:55:09,532 INFO werkzeug Thread-13 : 127.0.0.1 - - [18/Aug/2021 23:55:09] "[33mGET /css/datatables/datatables.css HTTP/1.1[0m" 404 -
+2021-08-18 23:55:09,562 INFO werkzeug Thread-14 : 127.0.0.1 - - [18/Aug/2021 23:55:09] "[33mGET /css/datatables/datatables.css HTTP/1.1[0m" 404 -
+2021-08-18 23:57:11,266 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-18 23:57:12,466 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-18 23:57:12,469 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-18 23:57:13,242 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:00:02,855 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:00:04,963 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:00:04,965 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:00:05,940 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:00:29,264 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:00:30,842 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:00:30,846 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:00:31,599 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:02:42,345 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:02:43,769 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:02:43,773 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:02:44,482 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:03:59,428 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:04:00,960 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:04:00,966 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:04:01,673 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:08:35,951 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:08:38,737 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:08:38,741 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:08:39,384 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:14:17,477 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:14:19,000 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:14:19,005 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:14:19,639 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:15:06,499 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:15:07,822 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:15:07,828 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:15:08,442 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:15:19,158 ERROR market Thread-2 : <built-in function id>
+Traceback (most recent call last):
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\routes.py", line 129, in dashboard_page
+    app.logger.info("DashboardLanded:: SessionID: %s"%session[id])
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\sessions.py", line 84, in __getitem__
+    return super(SecureCookieSession, self).__getitem__(key)
+KeyError: <built-in function id>
+2021-08-19 00:15:19,189 INFO werkzeug Thread-2 : 127.0.0.1 - - [19/Aug/2021 00:15:19] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2021-08-19 00:15:19,734 INFO werkzeug Thread-3 : 127.0.0.1 - - [19/Aug/2021 00:15:19] "GET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:15:19,984 INFO werkzeug Thread-4 : 127.0.0.1 - - [19/Aug/2021 00:15:19] "GET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:15:20,302 INFO werkzeug Thread-5 : 127.0.0.1 - - [19/Aug/2021 00:15:20] "GET /dashboard?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2021-08-19 00:15:20,305 INFO werkzeug Thread-6 : 127.0.0.1 - - [19/Aug/2021 00:15:20] "GET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:15:20,554 INFO werkzeug Thread-7 : 127.0.0.1 - - [19/Aug/2021 00:15:20] "GET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:15:49,764 INFO market Thread-8 : LandedHome:: ip:127.0.0.1 referrer:None
+2021-08-19 00:15:49,786 ERROR market Thread-8 : Could not build url for endpoint 'market_page'. Did you mean 'home_page' instead?
+Traceback (most recent call last):
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\routes.py", line 105, in home_page
+    return render_template('home.html')
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\templates\home.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\templates\base.html", line 44, in top-level template code
+    <!--                <a class="nav-link" href="{{ url_for('market_page') }}">Market</a>-->
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\helpers.py", line 370, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\app.py", line 2216, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\helpers.py", line 357, in url_for
+    rv = url_adapter.build(
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\werkzeug\routing.py", line 2305, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'market_page'. Did you mean 'home_page' instead?
+2021-08-19 00:15:49,842 INFO werkzeug Thread-8 : 127.0.0.1 - - [19/Aug/2021 00:15:49] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2021-08-19 00:15:50,070 INFO werkzeug Thread-9 : 127.0.0.1 - - [19/Aug/2021 00:15:50] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:15:50,182 INFO werkzeug Thread-10 : 127.0.0.1 - - [19/Aug/2021 00:15:50] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:15:50,476 INFO werkzeug Thread-11 : 127.0.0.1 - - [19/Aug/2021 00:15:50] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2021-08-19 00:15:50,554 INFO werkzeug Thread-12 : 127.0.0.1 - - [19/Aug/2021 00:15:50] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:15:50,875 INFO werkzeug Thread-13 : 127.0.0.1 - - [19/Aug/2021 00:15:50] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:31:58,348 INFO market Thread-15 : LandedHome:: ip:127.0.0.1 referrer:None
+2021-08-19 00:31:58,348 ERROR market Thread-15 : Could not build url for endpoint 'market_page'. Did you mean 'home_page' instead?
+Traceback (most recent call last):
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\routes.py", line 105, in home_page
+    return render_template('home.html')
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\templates\home.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\templates\base.html", line 44, in top-level template code
+    <!--                <a class="nav-link" href="{{ url_for('market_page') }}">Market</a>-->
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\helpers.py", line 370, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\app.py", line 2216, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\helpers.py", line 357, in url_for
+    rv = url_adapter.build(
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\werkzeug\routing.py", line 2305, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'market_page'. Did you mean 'home_page' instead?
+2021-08-19 00:31:58,431 INFO werkzeug Thread-15 : 127.0.0.1 - - [19/Aug/2021 00:31:58] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2021-08-19 00:31:58,456 INFO werkzeug Thread-16 : 127.0.0.1 - - [19/Aug/2021 00:31:58] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:31:58,598 INFO werkzeug Thread-17 : 127.0.0.1 - - [19/Aug/2021 00:31:58] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:31:58,928 INFO werkzeug Thread-18 : 127.0.0.1 - - [19/Aug/2021 00:31:58] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2021-08-19 00:31:58,931 INFO werkzeug Thread-19 : 127.0.0.1 - - [19/Aug/2021 00:31:58] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:31:59,191 INFO werkzeug Thread-20 : 127.0.0.1 - - [19/Aug/2021 00:31:59] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:33:12,654 INFO werkzeug MainThread :  * Restarting with stat
+2021-08-19 00:33:13,587 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:33:13,589 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:33:14,153 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:33:31,625 INFO market Thread-3 : LandedHome:: ip:127.0.0.1 referrer:None
+2021-08-19 00:33:31,640 ERROR market Thread-3 : Could not build url for endpoint 'market_page'. Did you mean 'home_page' instead?
+Traceback (most recent call last):
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\routes.py", line 105, in home_page
+    return render_template('home.html')
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\templates\home.html", line 1, in top-level template code
+    {% extends 'base.html' %}
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\templates\base.html", line 44, in top-level template code
+    <!--                <a class="nav-link" href="{{ url_for('market_page') }}">Market</a>-->
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\helpers.py", line 370, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\app.py", line 2216, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\helpers.py", line 357, in url_for
+    rv = url_adapter.build(
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\werkzeug\routing.py", line 2305, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'market_page'. Did you mean 'home_page' instead?
+2021-08-19 00:33:31,696 INFO werkzeug Thread-3 : 127.0.0.1 - - [19/Aug/2021 00:33:31] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2021-08-19 00:33:32,361 INFO werkzeug Thread-2 : 127.0.0.1 - - [19/Aug/2021 00:33:32] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:33:32,436 INFO werkzeug Thread-4 : 127.0.0.1 - - [19/Aug/2021 00:33:32] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:33:32,758 INFO werkzeug Thread-5 : 127.0.0.1 - - [19/Aug/2021 00:33:32] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2021-08-19 00:33:32,761 INFO werkzeug Thread-6 : 127.0.0.1 - - [19/Aug/2021 00:33:32] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:33:33,026 INFO werkzeug Thread-7 : 127.0.0.1 - - [19/Aug/2021 00:33:33] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:34:37,671 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:34:37,906 INFO werkzeug MainThread :  * Restarting with stat
+2021-08-19 00:34:39,448 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:34:39,456 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:34:40,172 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:34:49,104 INFO market Thread-2 : LandedHome:: ip:127.0.0.1 referrer:None
+2021-08-19 00:34:49,324 INFO werkzeug Thread-2 : 127.0.0.1 - - [19/Aug/2021 00:34:49] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2021-08-19 00:34:49,938 INFO werkzeug Thread-4 : 127.0.0.1 - - [19/Aug/2021 00:34:49] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:34:49,942 INFO werkzeug Thread-3 : 127.0.0.1 - - [19/Aug/2021 00:34:49] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:34:50,265 INFO werkzeug Thread-5 : 127.0.0.1 - - [19/Aug/2021 00:34:50] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2021-08-19 00:34:50,283 INFO werkzeug Thread-6 : 127.0.0.1 - - [19/Aug/2021 00:34:50] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:34:50,522 INFO werkzeug Thread-7 : 127.0.0.1 - - [19/Aug/2021 00:34:50] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:36:06,975 INFO market Thread-9 : LandedHome:: ip:127.0.0.1 referrer:None
+2021-08-19 00:36:07,067 INFO werkzeug Thread-9 : 127.0.0.1 - - [19/Aug/2021 00:36:07] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2021-08-19 00:36:07,093 INFO werkzeug Thread-10 : 127.0.0.1 - - [19/Aug/2021 00:36:07] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:36:07,243 INFO werkzeug Thread-11 : 127.0.0.1 - - [19/Aug/2021 00:36:07] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:36:07,566 INFO werkzeug Thread-12 : 127.0.0.1 - - [19/Aug/2021 00:36:07] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2021-08-19 00:36:07,593 INFO werkzeug Thread-13 : 127.0.0.1 - - [19/Aug/2021 00:36:07] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:36:07,816 INFO werkzeug Thread-14 : 127.0.0.1 - - [19/Aug/2021 00:36:07] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:39:12,012 INFO market Thread-16 : LandedHome:: ip:127.0.0.1 referrer:None
+2021-08-19 00:39:12,137 INFO werkzeug Thread-16 : 127.0.0.1 - - [19/Aug/2021 00:39:12] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2021-08-19 00:39:12,283 INFO werkzeug Thread-17 : 127.0.0.1 - - [19/Aug/2021 00:39:12] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:39:12,493 INFO werkzeug Thread-18 : 127.0.0.1 - - [19/Aug/2021 00:39:12] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:39:12,495 INFO werkzeug Thread-19 : 127.0.0.1 - - [19/Aug/2021 00:39:12] "GET /?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:39:12,600 INFO werkzeug Thread-20 : 127.0.0.1 - - [19/Aug/2021 00:39:12] "GET /?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:39:12,806 INFO werkzeug Thread-21 : 127.0.0.1 - - [19/Aug/2021 00:39:12] "GET /?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2021-08-19 00:39:12,831 INFO werkzeug Thread-22 : 127.0.0.1 - - [19/Aug/2021 00:39:12] "GET /?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:40:13,252 INFO market Thread-24 : LandedHome:: ip:127.0.0.1 referrer:None
+2021-08-19 00:40:13,255 INFO werkzeug Thread-24 : 127.0.0.1 - - [19/Aug/2021 00:40:13] "GET / HTTP/1.1" 200 -
+2021-08-19 00:40:13,453 INFO werkzeug Thread-25 : 127.0.0.1 - - [19/Aug/2021 00:40:13] "GET /static/favicon.ico HTTP/1.1" 200 -
+2021-08-19 00:40:42,562 INFO market Thread-26 : SignedGuestSuccess:: ip:127.0.0.1 referrer:http://localhost:5555/ guest_email:user1chrome@gmail.com guest_phone:1234567891
+2021-08-19 00:40:42,562 INFO market Thread-26 : SessionCreated:: user1chrome@gmail.com1234567891
+2021-08-19 00:40:42,568 INFO werkzeug Thread-26 : 127.0.0.1 - - [19/Aug/2021 00:40:42] "[32mPOST /home HTTP/1.1[0m" 302 -
+2021-08-19 00:40:42,796 ERROR market Thread-27 : <built-in function id>
+Traceback (most recent call last):
+  File "C:\Users\MohitKumarSingh\OneDrive - Enquero\stock_framework\stock_website\mohitbhaiya.com\market\routes.py", line 129, in dashboard_page
+    app.logger.info("DashboardLanded:: SessionID: %s"%session[id])
+  File "C:\Users\MohitKumarSingh\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\flask\sessions.py", line 84, in __getitem__
+    return super(SecureCookieSession, self).__getitem__(key)
+KeyError: <built-in function id>
+2021-08-19 00:40:42,876 INFO werkzeug Thread-27 : 127.0.0.1 - - [19/Aug/2021 00:40:42] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2021-08-19 00:40:43,228 INFO werkzeug Thread-28 : 127.0.0.1 - - [19/Aug/2021 00:40:43] "GET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:40:43,230 INFO werkzeug Thread-29 : 127.0.0.1 - - [19/Aug/2021 00:40:43] "GET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:40:43,469 INFO werkzeug Thread-30 : 127.0.0.1 - - [19/Aug/2021 00:40:43] "GET /dashboard?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2021-08-19 00:40:43,570 INFO werkzeug Thread-31 : 127.0.0.1 - - [19/Aug/2021 00:40:43] "GET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:41:22,684 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:41:22,785 INFO werkzeug MainThread :  * Restarting with stat
+2021-08-19 00:41:23,989 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:41:23,993 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:41:24,638 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:41:35,960 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:41:36,170 INFO werkzeug MainThread :  * Restarting with stat
+2021-08-19 00:41:37,689 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:41:37,689 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:41:38,254 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:41:38,364 INFO werkzeug Thread-2 : 127.0.0.1 - - [19/Aug/2021 00:41:38] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2021-08-19 00:41:39,023 INFO werkzeug Thread-3 : 127.0.0.1 - - [19/Aug/2021 00:41:39] "GET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:41:39,138 INFO werkzeug Thread-4 : 127.0.0.1 - - [19/Aug/2021 00:41:39] "GET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:41:39,449 INFO werkzeug Thread-5 : 127.0.0.1 - - [19/Aug/2021 00:41:39] "GET /dashboard?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2021-08-19 00:41:39,481 INFO werkzeug Thread-6 : 127.0.0.1 - - [19/Aug/2021 00:41:39] "GET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:41:39,730 INFO werkzeug Thread-7 : 127.0.0.1 - - [19/Aug/2021 00:41:39] "GET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:43:10,693 INFO werkzeug MainThread :  * Detected change in 'C:\\Users\\MohitKumarSingh\\OneDrive - Enquero\\stock_framework\\stock_website\\mohitbhaiya.com\\market\\routes.py', reloading
+2021-08-19 00:43:10,778 INFO werkzeug MainThread :  * Restarting with stat
+2021-08-19 00:43:11,859 WARNING werkzeug MainThread :  * Debugger is active!
+2021-08-19 00:43:11,859 INFO werkzeug MainThread :  * Debugger PIN: 294-214-327
+2021-08-19 00:43:12,474 INFO werkzeug Thread-1 :  * Running on http://127.0.0.1:5555/ (Press CTRL+C to quit)
+2021-08-19 00:43:14,946 INFO werkzeug Thread-2 : 127.0.0.1 - - [19/Aug/2021 00:43:14] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2021-08-19 00:43:15,401 INFO werkzeug Thread-3 : 127.0.0.1 - - [19/Aug/2021 00:43:15] "GET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2021-08-19 00:43:15,581 INFO werkzeug Thread-4 : 127.0.0.1 - - [19/Aug/2021 00:43:15] "GET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2021-08-19 00:43:15,902 INFO werkzeug Thread-5 : 127.0.0.1 - - [19/Aug/2021 00:43:15] "GET /dashboard?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+2021-08-19 00:43:15,906 INFO werkzeug Thread-6 : 127.0.0.1 - - [19/Aug/2021 00:43:15] "GET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:43:16,143 INFO werkzeug Thread-7 : 127.0.0.1 - - [19/Aug/2021 00:43:16] "GET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2021-08-19 00:43:48,115 INFO market Thread-8 : LandedHome:: ip:127.0.0.1 referrer:None
+2021-08-19 00:43:48,132 INFO werkzeug Thread-8 : 127.0.0.1 - - [19/Aug/2021 00:43:48] "GET / HTTP/1.1" 200 -
+2021-08-19 00:43:58,061 INFO market Thread-9 : SignedGuestSuccess:: ip:127.0.0.1 referrer:http://localhost:5555/ guest_email:user1chrome@gmail.com guest_phone:1234567891
+2021-08-19 00:43:58,061 INFO market Thread-9 : SessionCreated:: user1chrome@gmail.com1234567891
+2021-08-19 00:43:58,062 INFO werkzeug Thread-9 : 127.0.0.1 - - [19/Aug/2021 00:43:58] "[32mPOST /home HTTP/1.1[0m" 302 -
+2021-08-19 00:43:58,322 INFO market Thread-10 : DashboardLanded:: SessionID: user1chrome@gmail.com1234567891
+2021-08-19 00:43:58,323 INFO market Thread-10 : DataRequested:: SessionID: user1chrome@gmail.com1234567891 Period:15
+2021-08-19 00:43:59,352 DEBUG mysql.connector.connection Thread-10 : new_auth_plugin: mysql_native_password
+2021-08-19 00:44:01,105 INFO market Thread-10 : QueryFired:: SessionID: user1chrome@gmail.com1234567891 Query:select * from mbdcmart.website_data_15 order by avg_rise desc ,today_rise_percentage desc
+2021-08-19 00:44:02,368 INFO market Thread-10 : DataReceived:: SessionID: user1chrome@gmail.com1234567891 Query:select * from mbdcmart.website_data_15 order by avg_rise desc ,today_rise_percentage desc
+2021-08-19 00:44:02,368 INFO market Thread-10 : QueryFired:: SessionID: user1chrome@gmail.com1234567891 Query:select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL 15 day
+2021-08-19 00:44:31,712 INFO market Thread-10 : DataReceived:: SessionID: user1chrome@gmail.com1234567891 Query:select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL 15 day
+2021-08-19 00:44:31,971 INFO werkzeug Thread-10 : 127.0.0.1 - - [19/Aug/2021 00:44:31] "GET /dashboard HTTP/1.1" 200 -
+2021-08-19 00:44:40,931 INFO market Thread-11 : DashboardLanded:: SessionID: user1chrome@gmail.com1234567891
+2021-08-19 00:44:40,931 INFO market Thread-11 : DataRequested:: SessionID: user1chrome@gmail.com1234567891 Period:7
+2021-08-19 00:44:42,204 DEBUG mysql.connector.connection Thread-11 : new_auth_plugin: mysql_native_password
+2021-08-19 00:44:43,909 INFO market Thread-11 : QueryFired:: SessionID: user1chrome@gmail.com1234567891 Query:select * from mbdcmart.website_data_7 order by avg_rise desc ,today_rise_percentage desc
+2021-08-19 00:44:45,479 INFO market Thread-11 : DataReceived:: SessionID: user1chrome@gmail.com1234567891 Query:select * from mbdcmart.website_data_7 order by avg_rise desc ,today_rise_percentage desc
+2021-08-19 00:44:45,479 INFO market Thread-11 : QueryFired:: SessionID: user1chrome@gmail.com1234567891 Query:select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL 7 day
+2021-08-19 00:44:58,731 INFO market Thread-11 : DataReceived:: SessionID: user1chrome@gmail.com1234567891 Query:select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL 7 day
+2021-08-19 00:44:58,840 INFO werkzeug Thread-11 : 127.0.0.1 - - [19/Aug/2021 00:44:58] "GET /dashboard?period=7 HTTP/1.1" 200 -
+2021-08-19 00:45:53,130 INFO market Thread-14 : LandedHome:: ip:127.0.0.1 referrer:None
+2021-08-19 00:45:53,133 INFO werkzeug Thread-14 : 127.0.0.1 - - [19/Aug/2021 00:45:53] "GET / HTTP/1.1" 200 -
+2021-08-19 00:46:07,583 INFO market Thread-15 : SignedGuestSuccess:: ip:127.0.0.1 referrer:http://localhost:5555/ guest_email:user2edge@gmail.com guest_phone:0987650987
+2021-08-19 00:46:07,584 INFO market Thread-15 : SessionCreated:: user2edge@gmail.com0987650987
+2021-08-19 00:46:07,586 INFO werkzeug Thread-15 : 127.0.0.1 - - [19/Aug/2021 00:46:07] "[32mPOST /home HTTP/1.1[0m" 302 -
+2021-08-19 00:46:07,602 INFO market Thread-16 : DashboardLanded:: SessionID: user2edge@gmail.com0987650987
+2021-08-19 00:46:07,602 INFO market Thread-16 : DataRequested:: SessionID: user2edge@gmail.com0987650987 Period:15
+2021-08-19 00:46:08,700 DEBUG mysql.connector.connection Thread-16 : new_auth_plugin: mysql_native_password
+2021-08-19 00:46:10,335 INFO market Thread-16 : QueryFired:: SessionID: user2edge@gmail.com0987650987 Query:select * from mbdcmart.website_data_15 order by avg_rise desc ,today_rise_percentage desc
+2021-08-19 00:46:11,614 INFO market Thread-16 : DataReceived:: SessionID: user2edge@gmail.com0987650987 Query:select * from mbdcmart.website_data_15 order by avg_rise desc ,today_rise_percentage desc
+2021-08-19 00:46:11,614 INFO market Thread-16 : QueryFired:: SessionID: user2edge@gmail.com0987650987 Query:select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL 15 day
+2021-08-19 00:46:39,782 INFO market Thread-16 : DataReceived:: SessionID: user2edge@gmail.com0987650987 Query:select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL 15 day
+2021-08-19 00:46:40,002 INFO werkzeug Thread-16 : 127.0.0.1 - - [19/Aug/2021 00:46:40] "GET /dashboard HTTP/1.1" 200 -
+2021-08-19 00:46:46,567 INFO market Thread-17 : DashboardLanded:: SessionID: user2edge@gmail.com0987650987
+2021-08-19 00:46:46,567 INFO market Thread-17 : DataRequested:: SessionID: user2edge@gmail.com0987650987 Period:7
+2021-08-19 00:46:47,715 DEBUG mysql.connector.connection Thread-17 : new_auth_plugin: mysql_native_password
+2021-08-19 00:46:49,353 INFO market Thread-17 : QueryFired:: SessionID: user2edge@gmail.com0987650987 Query:select * from mbdcmart.website_data_7 order by avg_rise desc ,today_rise_percentage desc
+2021-08-19 00:46:50,810 INFO market Thread-17 : DataReceived:: SessionID: user2edge@gmail.com0987650987 Query:select * from mbdcmart.website_data_7 order by avg_rise desc ,today_rise_percentage desc
+2021-08-19 00:46:50,811 INFO market Thread-17 : QueryFired:: SessionID: user2edge@gmail.com0987650987 Query:select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL 7 day
+2021-08-19 00:47:03,527 INFO market Thread-17 : DataReceived:: SessionID: user2edge@gmail.com0987650987 Query:select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL 7 day
+2021-08-19 00:47:03,596 INFO werkzeug Thread-17 : 127.0.0.1 - - [19/Aug/2021 00:47:03] "GET /dashboard?period=7 HTTP/1.1" 200 -
+2021-08-19 00:49:47,347 INFO market Thread-20 : LandedHome:: ip:127.0.0.1 referrer:None
+2021-08-19 00:49:47,348 INFO werkzeug Thread-20 : 127.0.0.1 - - [19/Aug/2021 00:49:47] "GET / HTTP/1.1" 200 -
+2021-08-19 00:50:00,995 INFO market Thread-21 : DashboardLanded:: SessionID: user1chrome@gmail.com1234567891
+2021-08-19 00:50:00,996 INFO market Thread-21 : DataRequested:: SessionID: user1chrome@gmail.com1234567891 Period:15
+2021-08-19 00:50:02,275 DEBUG mysql.connector.connection Thread-21 : new_auth_plugin: mysql_native_password
+2021-08-19 00:50:04,015 INFO market Thread-21 : QueryFired:: SessionID: user1chrome@gmail.com1234567891 Query:select * from mbdcmart.website_data_15 order by avg_rise desc ,today_rise_percentage desc
+2021-08-19 00:50:05,370 INFO market Thread-21 : DataReceived:: SessionID: user1chrome@gmail.com1234567891 Query:select * from mbdcmart.website_data_15 order by avg_rise desc ,today_rise_percentage desc
+2021-08-19 00:50:05,370 INFO market Thread-21 : QueryFired:: SessionID: user1chrome@gmail.com1234567891 Query:select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL 15 day
+2021-08-19 00:50:31,144 INFO market Thread-21 : DataReceived:: SessionID: user1chrome@gmail.com1234567891 Query:select * from trading.all_trade_consolidated where trade_date >= CURDATE() - INTERVAL 15 day
+2021-08-19 00:50:31,253 INFO werkzeug Thread-21 : 127.0.0.1 - - [19/Aug/2021 00:50:31] "GET /dashboard HTTP/1.1" 200 -

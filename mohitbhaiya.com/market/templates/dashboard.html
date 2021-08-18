@@ -16,14 +16,15 @@ Dashboard
                                     <input class='h-75' type='text' id='myInput' background-image='/static/searchicon.png'  onkeyup='search({{data|safe}},{{all_data|safe}},{{period}})' placeholder='Search for Symbol or Patterns..' title='Type in a symbol'>
                                     </input>
 
-                                </div>
+<!--                                </div><div id="refresh_loader" class="spinner-border text-success spinner-border-sm"  role="status"><span class="sr-only">Loading...</span></div>-->
                             </div></div></div><div>
     </div>
     <div class="row">
         <div class="col-12 col-xl-12 mb-4">
             <div class="row">
                 <div class="col-12 mb-4">
-                    <div class="card border-light shadow-sm">
+                    <div id="best_performer_container" class="card border-light shadow-sm">
+<!--                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"><span class="visually-hidden">Loading.</span></div>-->
                         <div class="card-header">
                             <div class="row ">
                                 <div class="col-9">
@@ -34,17 +35,17 @@ Dashboard
                                     </h2>
                                         <div id="div_timeframe_filter" class="btn-group btn-group-toggle" style="display: inline-block" data-toggle="buttons">
                                             <label class="btn btn-light h-75   "> <!-- onclick = "change_toggle_text_color('last1monthlink')" -->
-                                                <a href="{{ url_for('dashboard_page',period=60) }}"><input type="radio" name="options" id="option0" autocomplete="off" > <p id="period_60" style="color:blue;" checked> <small>Last 2 months</small></p></a>
-                                            </label>
+                                                <a href="{{ url_for('dashboard_page',period=60)}}" onclick="spinnerOn('period_60_spin')"><input type="radio" name="options" id="60_days_filter" autocomplete="off" > <p id="period_60" style="color:blue;" checked> <small>Last 2 months</small></p></a>
+                                            </label><div id="period_60_spin" class="spinner-border text-success spinner-border-sm" style="display:none" role="status"><span class="sr-only">Loading...</span></div>
                                            <label class="btn btn-light h-75   "> <!-- onclick = "change_toggle_text_color('last1monthlink')" -->
-                                                <a href="{{ url_for('dashboard_page',period=30) }}"><input type="radio" name="options" id="option1" autocomplete="off" > <p id="period_30" style="color:blue;" checked> <small>Last 1 month</small></p></a>
-                                            </label>
-                                            <label class="btn btn-light h-75 active">
-                                                <a href="{{ url_for('dashboard_page',period=15) }}"><input type="radio" name="options" id="option2" autocomplete="off"> <p id="period_15" style="color:blue;" ><small>Last 15 days</small></p></a>
-                                            </label>
+                                                <a href="{{ url_for('dashboard_page',period=30)}}" onclick="spinnerOn('period_30_spin')"><input type="radio" name="options" id="30_days_filter" autocomplete="off" > <p id="period_30" style="color:blue;" checked> <small>Last 1 month</small></p></a>
+                                            </label><div id="period_30_spin" class="spinner-border text-success spinner-border-sm" style="display:none" role="status"><span class="sr-only">Loading...</span></div>
+                                            <label class="btn btn-light h-75 ">
+                                                <a href="{{ url_for('dashboard_page',period=15)}}" onclick="spinnerOn('period_15_spin')"><input type="radio" name="options" id="15_days_filter" autocomplete="off"> <p id="period_15" style="color:blue;" ><small>Last 15 days</small></p></a>
+                                            </label><div id="period_15_spin" class="spinner-border text-success spinner-border-sm" style="display:none"  role="status"><span class="sr-only">Loading...</span></div>
                                             <label class="btn btn-light h-75">
-                                                <a href="{{ url_for('dashboard_page',period=7) }}"><input type="radio" name="options" id="option3" autocomplete="off" > <p id="period_7" style="color:blue;" ><small>Last 7 days</small></p></a>
-                                            </label>
+                                                <a href="{{ url_for('dashboard_page',period=7) }}" onclick="spinnerOn('period_7_spin')"><input type="radio" name="options" id="7_days_filter" autocomplete="off" > <p id="period_7" style="color:blue;" ><small>Last 7 days</small></p></a>
+                                            </label><div id="period_7_spin" class="spinner-border text-success spinner-border-sm" style="display:none" role="status"><span class="sr-only">Loading...</span></div>
                                         </div>
                                 </div>
                                 <div class = "col-3">

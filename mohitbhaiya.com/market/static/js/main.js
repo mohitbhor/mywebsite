@@ -1,5 +1,13 @@
 
 
+
+
+function spinnerOn(spinner_id){
+    spinner_div = document.getElementById(spinner_id)
+    spinner_div.style.display="inline-block"
+
+}
+
 function change_toggle_text_color(p_id){   //window.location.href = '/dashboard?period=30'
     var searchEles = document.getElementById("div_timeframe_filter").querySelectorAll("p");
     for(var i = 0; i < searchEles.length; i++) {
@@ -13,7 +21,6 @@ function change_toggle_text_color(p_id){   //window.location.href = '/dashboard?
     }
 }
 function getPatterJourney(data){
-    //console.log("PATTERN JOURNEY")
     items = data.split('-->')
     ul = document.createElement('ul')
     ul.classList.add("list-group")
@@ -31,7 +38,6 @@ function getPatterJourney(data){
         li.appendChild(a);
         ul.append(li)
         }
-    //console.log(ul)
     return ul.outerHTML;
 }
 function createpageicon(curr_page=1,data,all_data,period=15,max_page=6){
@@ -84,13 +90,11 @@ function createpageicon(curr_page=1,data,all_data,period=15,max_page=6){
         li_element.addEventListener("click",function(){createpageicon(next,data,all_data,period)}, false);
         ul_element.append(li_element)
     }
-    //console.log(data)  createpageicon(1,{{data|safe}})
-    //console.log(typeof data)
     change_toggle_text_color("period_"+period)
     addTable(data,curr_page,all_data)
   }
 function search(source=[],all_data,period=15) {
-    //console.log("hi")
+    //console.log(all_data)
     var results;
     input = document.getElementById("myInput");
     query_symbol = input.value.toUpperCase();
@@ -98,7 +102,6 @@ function search(source=[],all_data,period=15) {
         var match = entry.symbol.toUpperCase().indexOf(query_symbol) !== -1 || entry.patterns.toUpperCase().indexOf(query_symbol) !== -1;
         return match ? entry : null;
     });
-    //console.log(results)
     createpageicon(curr_page=1,results,all_data,period,max_page=6)
     //return results;
 }
@@ -113,8 +116,8 @@ function showHideGraph(tr_id,symbol,all_data){
                     for (each in all_data){
                         if (all_data[each]['symbol'] == symbol ){
                              record = all_data[each]
-                             console.log("showhidegraph")
-                             console.log(record)
+//                             console.log("showhidegraph")
+//                             console.log(record)
                              filteredRecords.push(record)
                              }
                     }
@@ -124,7 +127,7 @@ function showHideGraph(tr_id,symbol,all_data){
                         console.log("****creating new div")
                         div = createDiv(symbol)
                         hidden_td.append(div)
-                        console.log(hidden_tr)
+//                        console.log(hidden_tr)
                         priceChartId= "canvas1_"+symbol
                         createPriceChart(priceChartId,filteredRecords)
                         volChartId= "canvas2_"+symbol
@@ -133,7 +136,7 @@ function showHideGraph(tr_id,symbol,all_data){
                         createDeliveryChart(delChartId,filteredRecords)
                     }
                     else{
-                        console.log("**** Div already exists *****")
+//                        console.log("**** Div already exists *****")
                     }
         }
         else{
@@ -152,7 +155,7 @@ function createPriceChart(chartId,data){
 
     const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
     for (each in data){
-        console.log("*****")
+//        console.log("*****")
 //        console.log(data[each])
         trade_date.push(data[each]['trade_date'])
         close_price.push(data[each]['close_price'])
@@ -368,8 +371,13 @@ function searchSymboltable(data) {
 function addTable(data,current_page,all_data) {
 
     $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();})
+    $('[data-toggle="popover"]').popover();
+    $('refresh_loader').hide();})
 
+//    mainDiv= document.getElementById("best_performer_container")
+//    spinDiv = htmlToElement('<div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"><span class="visually-hidden">Loading...</span></div>')
+//    console.log(spinDiv)
+//    mainDiv.append(spinDiv)
 
     var tableBody = document.getElementById("tab_performance_body");
     // remove older TR first
@@ -391,7 +399,7 @@ function addTable(data,current_page,all_data) {
         var tr = document.createElement('TR');
         tr.setAttribute('id',i);
         tableBody.appendChild(tr);
-        console.log(obj)
+        //console.log(obj)
         for (var key in obj) {
               var td = document.createElement('TD');
               var value = obj[key];
@@ -426,8 +434,8 @@ function addTable(data,current_page,all_data) {
                     td.appendChild(document.createTextNode(value));
                     play = document.createElement('span')
                     trId = "showhidetr"+i.toString()
-                    console.log('the tr before calling on click is ->'+trId)
-                    console.log(typeof allDataString)
+//                    console.log('the tr before calling on click is ->'+trId)
+//                    console.log(typeof allDataString)
                     var play = htmlToElement('<a href="#'+i.toString()+'" tittle="click here for detail"><i class="fa fa-line-chart secondary"  style="margin-left:4px;" tittle="click here for detail"></i></a>')
 
                     play.addEventListener("click", makeItHappenDelegate(trId,obj['symbol'],all_data))
@@ -563,7 +571,6 @@ function htmlToElement(html) {
 }
 
 function getPatterJourney(data){
-    //console.log("PATTERN JOURNEY")
     items = data.split('-->')
     ul = document.createElement('ul')
     ul.classList.add("list-group")
@@ -581,6 +588,5 @@ function getPatterJourney(data){
         li.appendChild(a);
         ul.append(li)
         }
-    //console.log(ul)
     return ul.outerHTML;
 }

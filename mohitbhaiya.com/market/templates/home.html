@@ -8,37 +8,52 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+function isNumber(){
+    console.log('on key press ')
+    var input = document.getElementById("guestInputPhone")
+    value = input.value
+    if(isNaN(value)){
+        var error_div = document.getElementById("login_error")
+        error_div.textContent = 'Phone Number Should be Number'
+    }
 
+}
+function sumbitspinnerOn(){
+    guest_submit = document.getElementById("guest_submit")
+    guest_submit.style.display="none"
+    spinner_div = document.getElementById("spinner")
+    spinner_div.style.display=""
+
+}
+</script>
 <header class="w3-container w3-blue w3-center"> <!--style="padding:160px 20px" -->
 
     <h2 class="display-3">Trading Decisions Made </br>Easy for You</h2>
     <p class="w3-large">Enabling Retail Traders With Technical Analysis, Patterns & Trends </p>
-
-    <form>
+    <div id="login_error" class="text-danger">{{msg}}</div>
+<!--    <div id="display_user" class="text-danger">{{session['guest_email']}}</div>-->
+    <form action="home" onsubmit="sumbitspinnerOn()" method="POST">
       <div class="form-row justify-content-center">
           <div class="form-group col-md-2">
-          <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
+          <input type="email" class="form-control" id="guestInputEmail" name="guestInputEmail" placeholder="Email" required>
           </div>
 
           <div class="form-group col-md-2">
-              <input type="tel" class="form-control" id="inputPhone" placeholder="Phone Number" required>
+              <input type="tel" class="form-control" id="guestInputPhone" name="guestInputPhone" maxlength="10" minlength="10" min="0" onkeyup="isNumber()" data-bind="value:replyNumber" placeholder="Phone Number" required>
           </div>
 
       </div>
-        <button type="button" class="btn btn-success btn-lg ">Get Started</button>
-        <p><small class="w3-small">No fee, No promotional SMS, No promotional emails </small></p>
+<!--        <div class="spinner-border" style="width: 3rem; height: 3rem; display:none" role="status">Loading...</div>-->
+        <button id="spinner"  class="btn btn-success btn-lg " type="button" style="display:none">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+        </button>
+        <button id="guest_submit" type="submit" class="btn btn-success btn-lg ">Get Started As Guest </button>
+        <p><small class="w3-small">No fee, No promotional SMS, No promotional emails. </small></p>
     </form>
 
 </header>
-<!--    <div class="bg-primary" style="color:white;height: 100vh;width: 100vw;">-->
-<!--        <div class="col-md-7 p-lg-5 mx-auto my-5">-->
-<!--            <h1 class="display-4 font-weight-normal">Trading Made Easy for You.</h1>-->
-<!--            <p class="lead font-weight-normal">Start purchasing products by clicking the link below</p>-->
-<!--            <a class="btn btn-primary" href="{{ url_for('market_page') }}">Get Started</a>-->
-<!--        </div>-->
-<!--        <div class="product-device box-shadow d-none d-md-block">xxxxxxxxxx</div>-->
-<!--        <div class="product-device product-device-2 box-shadow d-none d-md-block">ghhjkkigf</div>-->
-<!--    </div>-->
 <style>
 body {
       background-color: #0000FF;
